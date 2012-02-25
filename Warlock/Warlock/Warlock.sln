@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Warlock", "Warlock.csproj", "{0590E2A9-72B0-4835-971A-D6B18BE645EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Windows Phone = Debug|Windows Phone
+		Release|Windows Phone = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0590E2A9-72B0-4835-971A-D6B18BE645EB}.Debug|Windows Phone.ActiveCfg = Debug|Windows Phone
+		{0590E2A9-72B0-4835-971A-D6B18BE645EB}.Debug|Windows Phone.Build.0 = Debug|Windows Phone
+		{0590E2A9-72B0-4835-971A-D6B18BE645EB}.Debug|Windows Phone.Deploy.0 = Debug|Windows Phone
+		{0590E2A9-72B0-4835-971A-D6B18BE645EB}.Release|Windows Phone.ActiveCfg = Release|Windows Phone
+		{0590E2A9-72B0-4835-971A-D6B18BE645EB}.Release|Windows Phone.Build.0 = Release|Windows Phone
+		{0590E2A9-72B0-4835-971A-D6B18BE645EB}.Release|Windows Phone.Deploy.0 = Release|Windows Phone
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

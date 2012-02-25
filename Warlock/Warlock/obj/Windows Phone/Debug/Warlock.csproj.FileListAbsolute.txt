@@ -1,0 +1,14 @@
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Warlock.dll
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Warlock.pdb
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\obj\Windows Phone\Debug\ResolveAssemblyReference.cache
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\obj\Windows Phone\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\obj\Windows Phone\Debug\Warlock.dll
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\obj\Windows Phone\Debug\Warlock.pdb
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\AppManifest.xaml
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\obj\Windows Phone\Debug\WMAppManifest.xml.g
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\obj\Windows Phone\Debug\WMAppManifest.xml
+bin\Windows Phone\Debug\
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Warlock.xap
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\obj\Windows Phone\Debug\XapCacheFile.xml
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\graywizard.xnb
+C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\Warlock.xnb
