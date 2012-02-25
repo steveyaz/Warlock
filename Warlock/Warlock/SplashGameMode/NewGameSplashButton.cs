@@ -26,7 +26,7 @@ namespace Warlock
             WarlockGame.m_spriteBatch.End();
         }
 
-        public void Interact(GestureSample gesture)
+        public void InteractGesture(GestureSample gesture)
         {
             if (gesture.GestureType == GestureType.Tap
                 && gesture.Position.X < m_textPosition.X + WarlockGame.m_spriteFont.MeasureString(m_buttontext).X && gesture.Position.X > m_textPosition.X
@@ -34,6 +34,11 @@ namespace Warlock
             {
                 Execute();
             }
+        }
+
+        public void InteractLocation(TouchLocation touchLocation)
+        {
+
         }
 
         private void Execute()

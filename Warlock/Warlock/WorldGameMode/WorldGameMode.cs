@@ -22,7 +22,7 @@ namespace Warlock
             m_drawable.Add(worldoverlay);
             m_interactable.Add(worldoverlay);
 
-            TouchPanel.EnabledGestures = GestureType.Tap;
+            TouchPanel.EnabledGestures = GestureType.DoubleTap | GestureType.Pinch | GestureType.Tap;
         }
 
         public void Draw()
@@ -44,7 +44,14 @@ namespace Warlock
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
                 foreach (IInteractable interactable in m_interactable)
-                    interactable.Interact(gesture);
+                    interactable.InteractGesture(gesture);
+            }
+            else
+            {
+                TouchCollection touchCollection = TouchPanel.GetState();
+                if (touchCollection.Count == 1)
+                    foreach (IInteractable interactable in m_interactable)
+                        interactable.InteractLocation(touchCollection[0]);
             }
         }
     }

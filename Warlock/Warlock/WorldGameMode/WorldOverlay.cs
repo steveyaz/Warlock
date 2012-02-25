@@ -14,8 +14,9 @@ namespace Warlock
         const int m_sizeY = 2400;
         const int m_tilesize = 600;
 
-        private Vector2 m_position;
-        private Vector2 m_velocity;
+        private Vector2 m_center;
+
+        private Vector2 m_pressLocation;
 
         private int m_left;
         private int m_top;
@@ -24,7 +25,7 @@ namespace Warlock
 
         public WorldOverlay()
         {
-            m_position = new Vector2(WarlockGame.m_graphics.PreferredBackBufferWidth / 2, WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
+            m_center = new Vector2(WarlockGame.m_graphics.PreferredBackBufferWidth / 2, WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
 
             m_maptiles = new string[4,4];
             m_maptiles[0,0] = "worldmap-0-0";
@@ -70,26 +71,48 @@ namespace Warlock
             WarlockGame.m_spriteBatch.End();
         }
 
-        public void Interact(GestureSample gesture)
+        public void InteractGesture(GestureSample gesture)
         {
-            if (gesture.GestureType == GestureType.Tap)
+            switch (gesture.GestureType)
             {
-                m_position.X += gesture.Position.X - WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
-                m_position.Y += gesture.Position.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
-
-                if (m_position.X < WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
-                    m_position.X = WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
-                else if (m_position.X > m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
-                    m_position.X = m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
-
-                if (m_position.Y < WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
-                    m_position.Y = WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
-                else if (m_position.Y > m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
-                    m_position.Y = m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
-
-                m_left = (int)(m_position.X - WarlockGame.m_graphics.PreferredBackBufferWidth / 2);
-                m_top = (int)(m_position.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
+                case GestureType.DoubleTap:
+                    break;
+                case GestureType.Pinch:
+                    break;
+                default:
+                    break;
             }
+        }
+
+        public void InteractLocation(TouchLocation touchLocation)
+        {
+            if (touchLocation.State == TouchLocationState.Pressed)
+                m_pressLocation = touchLocation.Position;
+            else if (touchLocation.State == TouchLocationState.Moved)
+            {
+                Vector2 position = new Vector2();
+                position = m_center + m_pressLocation - touchLocation.Position;
+                m_pressLocation = touchLocation.Position;
+                CenterOn(position);
+            }
+        }
+
+        public void CenterOn(Vector2 center)
+        {
+            m_center = center;
+
+            if (m_center.X < WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
+                m_center.X = WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
+            else if (m_center.X > m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
+                m_center.X = m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
+
+            if (m_center.Y < WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
+                m_center.Y = WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
+            else if (m_center.Y > m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
+                m_center.Y = m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
+
+            m_left = (int)(m_center.X - WarlockGame.m_graphics.PreferredBackBufferWidth / 2);
+            m_top = (int)(m_center.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
         }
     }
 }

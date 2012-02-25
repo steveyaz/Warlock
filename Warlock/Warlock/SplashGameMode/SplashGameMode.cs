@@ -46,7 +46,7 @@ namespace Warlock
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
                 foreach (IInteractable interactable in m_interactable)
-                    interactable.Interact(gesture);
+                    interactable.InteractGesture(gesture);
             }
         }
     }

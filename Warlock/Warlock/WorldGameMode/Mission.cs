@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework;
 
 namespace Warlock
 {
@@ -18,9 +19,14 @@ namespace Warlock
             
         }
 
-        public void Interact(GestureSample gesture)
+        public void InteractGesture(GestureSample gesture)
         {
             
+        }
+
+        public void InteractLocation(TouchLocation touchLocation)
+        {
+
         }
     }
 }
