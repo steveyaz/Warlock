@@ -72,7 +72,9 @@
     <Compile Include="SplashGameMode\ExitSplashButton.cs" />
     <Compile Include="SplashGameMode\NewGameSplashButton.cs" />
     <Compile Include="SplashGameMode\SplashGameMode.cs" />
+    <Compile Include="WorldGameMode\Mission.cs" />
     <Compile Include="WorldGameMode\WorldGameMode.cs" />
+    <Compile Include="WorldGameMode\WorldOverlay.cs" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>

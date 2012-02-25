@@ -18,6 +18,10 @@ namespace Warlock
             m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
 
+            WorldOverlay worldoverlay = new WorldOverlay();
+            m_drawable.Add(worldoverlay);
+            m_interactable.Add(worldoverlay);
+
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
 

@@ -19,6 +19,159 @@
       <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\Warlock.xnb</Output>
       <Time>2012-02-24T21:28:13.5436805-08:00</Time>
     </Item>
+    <Item>
+      <Source>mission.png</Source>
+      <Name>mission</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\mission.xnb</Output>
+      <Time>2012-02-24T23:37:23.2759398-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-0-0.png</Source>
+      <Name>worldmap-0-0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-0-0.xnb</Output>
+      <Time>2012-02-25T00:36:23.079405-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-0-1.png</Source>
+      <Name>worldmap-0-1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-0-1.xnb</Output>
+      <Time>2012-02-25T00:36:19.5512032-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-0-2.png</Source>
+      <Name>worldmap-0-2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-0-2.xnb</Output>
+      <Time>2012-02-25T00:36:16.6220357-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-0-3.png</Source>
+      <Name>worldmap-0-3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-0-3.xnb</Output>
+      <Time>2012-02-25T00:36:07.6805242-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-1-0.png</Source>
+      <Name>worldmap-1-0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-1-0.xnb</Output>
+      <Time>2012-02-25T00:36:22.2293564-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-1-1.png</Source>
+      <Name>worldmap-1-1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-1-1.xnb</Output>
+      <Time>2012-02-25T00:36:18.8321621-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-1-2.png</Source>
+      <Name>worldmap-1-2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-1-2.xnb</Output>
+      <Time>2012-02-25T00:36:15.7489857-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-1-3.png</Source>
+      <Name>worldmap-1-3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-1-3.xnb</Output>
+      <Time>2012-02-25T00:36:06.7604716-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-2-0.png</Source>
+      <Name>worldmap-2-0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-2-0.xnb</Output>
+      <Time>2012-02-25T00:36:21.4083094-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-2-1.png</Source>
+      <Name>worldmap-2-1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-2-1.xnb</Output>
+      <Time>2012-02-25T00:36:18.079119-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-2-2.png</Source>
+      <Name>worldmap-2-2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-2-2.xnb</Output>
+      <Time>2012-02-25T00:36:14.5249157-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-2-3.png</Source>
+      <Name>worldmap-2-3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-2-3.xnb</Output>
+      <Time>2012-02-25T00:36:04.1023196-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-3-0.png</Source>
+      <Name>worldmap-3-0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-3-0.xnb</Output>
+      <Time>2012-02-25T00:36:20.5762618-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-3-1.png</Source>
+      <Name>worldmap-3-1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-3-1.xnb</Output>
+      <Time>2012-02-25T00:36:17.3720786-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-3-2.png</Source>
+      <Name>worldmap-3-2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-3-2.xnb</Output>
+      <Time>2012-02-25T00:36:12.0967768-08:00</Time>
+    </Item>
+    <Item>
+      <Source>worldmap-3-3.png</Source>
+      <Name>worldmap-3-3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-3-3.xnb</Output>
+      <Time>2012-02-25T00:35:55.3448187-08:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{D601F587-C15A-4E30-A05A-374BACAA8829}</ContentProjectGUID>

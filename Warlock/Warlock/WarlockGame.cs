@@ -74,6 +74,23 @@ namespace Warlock
 
             // TODO: use this.Content to load your game content here
             m_textures.Add("graywizard", this.Content.Load<Texture2D>("graywizard"));
+            m_textures.Add("mission", this.Content.Load<Texture2D>("mission"));
+            m_textures.Add("worldmap-0-0", this.Content.Load<Texture2D>("worldmap-0-0"));
+            m_textures.Add("worldmap-0-1", this.Content.Load<Texture2D>("worldmap-0-1"));
+            m_textures.Add("worldmap-0-2", this.Content.Load<Texture2D>("worldmap-0-2"));
+            m_textures.Add("worldmap-0-3", this.Content.Load<Texture2D>("worldmap-0-3"));
+            m_textures.Add("worldmap-1-0", this.Content.Load<Texture2D>("worldmap-1-0"));
+            m_textures.Add("worldmap-1-1", this.Content.Load<Texture2D>("worldmap-1-1"));
+            m_textures.Add("worldmap-1-2", this.Content.Load<Texture2D>("worldmap-1-2"));
+            m_textures.Add("worldmap-1-3", this.Content.Load<Texture2D>("worldmap-1-3"));
+            m_textures.Add("worldmap-2-0", this.Content.Load<Texture2D>("worldmap-2-0"));
+            m_textures.Add("worldmap-2-1", this.Content.Load<Texture2D>("worldmap-2-1"));
+            m_textures.Add("worldmap-2-2", this.Content.Load<Texture2D>("worldmap-2-2"));
+            m_textures.Add("worldmap-2-3", this.Content.Load<Texture2D>("worldmap-2-3"));
+            m_textures.Add("worldmap-3-0", this.Content.Load<Texture2D>("worldmap-3-0"));
+            m_textures.Add("worldmap-3-1", this.Content.Load<Texture2D>("worldmap-3-1"));
+            m_textures.Add("worldmap-3-2", this.Content.Load<Texture2D>("worldmap-3-2"));
+            m_textures.Add("worldmap-3-3", this.Content.Load<Texture2D>("worldmap-3-3"));
             m_spriteFont = this.Content.Load<SpriteFont>("Warlock");
         }
 
@@ -105,8 +122,6 @@ namespace Warlock
         protected override void Draw(GameTime gameTime)
         {
             m_GameModes[m_CurrentGameMode].Draw();
-
-            //m_spriteBatch.Draw(WarlockGame.m_textures["graywizard"], Vector2.Zero, Color.White);
 
             base.Draw(gameTime);
         }
