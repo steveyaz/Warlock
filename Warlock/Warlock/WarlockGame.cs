@@ -46,7 +46,7 @@ namespace Warlock
         /// </summary>
         protected override void Initialize()
         {
-            m_Instance = this;
+            m_Instance = this; 
             m_textures = new Dictionary<string, Texture2D>();
 
             // initialize game to splash screen
