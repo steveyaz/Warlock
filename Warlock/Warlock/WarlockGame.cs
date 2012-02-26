@@ -23,8 +23,8 @@ namespace Warlock
         public static SpriteFont m_spriteFont;
         public static GraphicsDeviceManager m_graphics;
 
-        private Dictionary<GameModeIndex, IGameMode> m_GameModes;
-        private GameModeIndex m_CurrentGameMode;
+        public Dictionary<GameModeIndex, IGameMode> m_GameModes;
+        public GameModeIndex m_CurrentGameMode;
 
         public WarlockGame()
         {
@@ -51,7 +51,7 @@ namespace Warlock
 
             // initialize game to splash screen
             m_CurrentGameMode = GameModeIndex.Splash;
-            m_GameModes = new Dictionary<GameModeIndex, IGameMode>((int)GameModeIndex.Count);
+            m_GameModes = new Dictionary<GameModeIndex, IGameMode>();
 
             // initialize the different modes
             m_GameModes.Add(GameModeIndex.Splash, new SplashGameMode());
@@ -63,7 +63,7 @@ namespace Warlock
             m_GameModes.Add(GameModeIndex.Battle, new BattleGameMode());
             m_GameModes[GameModeIndex.Battle].Initialize();
 
-            m_GameModes.Add(GameModeIndex.City, new CityGameMode(CityEnum.Albador));
+            m_GameModes.Add(GameModeIndex.City, new CityGameMode());
             m_GameModes[GameModeIndex.City].Initialize();
 
             base.Initialize();

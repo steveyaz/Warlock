@@ -19,9 +19,9 @@ namespace Warlock
         private List<IInteractable> m_interactable;
 
         private WorldOverlay m_worldoverlay;
-        private WorldPlayer m_worldPlayer;
+        public WorldPlayer m_worldPlayer;
 
-        private IWorldEvent m_worldEventDestination;
+        public IWorldEvent m_worldEventDestination;
 
         public void Initialize()
         {
@@ -43,10 +43,10 @@ namespace Warlock
             m_interactable.Add(mission2);
 
             // Cities
-            City city1 = new City(600, 300);
+            WorldCity city1 = new WorldCity(600, 300, CityEnum.Albador);
             m_drawable.Add(city1);
             m_interactable.Add(city1);
-            City city2 = new City(1200, 900);
+            WorldCity city2 = new WorldCity(1200, 900, CityEnum.Albador);
             m_drawable.Add(city2);
             m_interactable.Add(city2);
 

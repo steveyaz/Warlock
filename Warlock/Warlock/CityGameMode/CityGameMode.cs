@@ -17,11 +17,6 @@ namespace Warlock
 
         CityModeBase CurrentCity;
 
-        public CityGameMode(CityEnum cityName)
-        {
-            InitCity(cityName);
-        }
-
         private void InitCity(CityEnum city)
         {
             switch (city)
@@ -46,20 +41,24 @@ namespace Warlock
             m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
 
-
-            m_drawable.Add(CurrentCity);
-            m_interactable.Add(CurrentCity);
-
             TouchPanel.EnabledGestures = GestureType.Tap;
+        }
+
+        public void InitializeDraw()
+        {
+            // Init drawable for particular city entered.
+            // Find where the player is.
+            WorldGameMode wgm = (WorldGameMode)WarlockGame.m_Instance.m_GameModes[GameModeIndex.World];
+            WorldCity CurrentCity = (WorldCity)wgm.m_worldEventDestination;
+            InitCity(CurrentCity.City);
         }
 
         public void Draw()
         {
+            // Build draw list based on player location.
             WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Red);
-
-            foreach (IDrawable drawable in m_drawable)
-                drawable.Draw();
-
+            InitializeDraw();
+            CurrentCity.Draw();
             return;
         }
 
@@ -67,7 +66,7 @@ namespace Warlock
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                WarlockGame.m_Instance.Exit();
+                WarlockGame.m_Instance.ChangeGameMode(GameModeIndex.World);
 
             if (TouchPanel.IsGestureAvailable)
             {
@@ -77,11 +76,8 @@ namespace Warlock
             }
         }
 
-        
-
         public void LoadContent()
         {
-            WarlockGame.m_Instance.EnsureTexture(CurrentCity.CityStr);
         }
     }
 }

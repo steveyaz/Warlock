@@ -21,6 +21,9 @@ namespace Warlock
         {
             // Main Draw for every city
             WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
+            //Hook into xml to draw.
+            WarlockGame.m_Instance.EnsureTexture(CityStr);
             WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[CityStr], rect, Color.White);
             WarlockGame.m_spriteBatch.End();
         }

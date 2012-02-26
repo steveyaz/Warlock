@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Warlock
 {
-    interface IDrawable
+    public interface IDrawable
     {
         void Draw();
     }

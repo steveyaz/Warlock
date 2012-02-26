@@ -8,12 +8,14 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Warlock
 {
-    class City : IWorldEvent, IDrawable, IInteractable
+    class WorldCity : IWorldEvent, IDrawable, IInteractable
     {
         public Vector2 m_cityPosition;
+        public CityEnum City;
 
-        public City(int x, int y)
+        public WorldCity(int x, int y, CityEnum City)
         {
+            this.City = City;
             m_cityPosition = new Vector2(x, y);
         }
 
@@ -51,7 +53,8 @@ namespace Warlock
 
         public void PlayerEnter()
         {
-
+            //Set World player's current location.
+            WarlockGame.m_Instance.ChangeGameMode(GameModeIndex.City);
         }
     }
 }
