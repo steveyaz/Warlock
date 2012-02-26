@@ -1,5 +1,5 @@
 Content\graywizard.xnb
-Content\Warlock.xnb
+Content\battle.xnb
 Content\worldmap-0-0.xnb
 Content\worldmap-0-1.xnb
 Content\worldmap-0-2.xnb
@@ -18,4 +18,5 @@ Content\worldmap-3-2.xnb
 Content\worldmap-3-3.xnb
 Content\center.xnb
 Content\city.xnb
-Content\battle.xnb
+Content\Warlock.xnb
+Content\battle1.xnb

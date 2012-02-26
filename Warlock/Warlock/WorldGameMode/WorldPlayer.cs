@@ -13,6 +13,7 @@ namespace Warlock
         public Vector2 m_playerWorldPosition;
 
         private Vector2 m_toPosition;
+        private Vector2 m_lastDelta;
         private Vector2 m_velocity;
         private bool m_moving = false;
 
@@ -51,10 +52,14 @@ namespace Warlock
             {
                 m_playerWorldPosition += m_velocity;
                 WorldGameMode.m_Instance.CenterOnPlayer();
-                if (Math.Abs(m_playerWorldPosition.X - m_toPosition.X) < 1 && Math.Abs(m_playerWorldPosition.Y - m_toPosition.Y) < 1)
+                if (m_lastDelta.Length() < (m_toPosition - m_playerWorldPosition).Length())
                 {
                     m_moving = false;
                     WorldGameMode.m_Instance.ArrivedAtDestination();
+                }
+                else
+                {
+                    m_lastDelta = m_toPosition - m_playerWorldPosition;
                 }
             }
         }
@@ -62,7 +67,10 @@ namespace Warlock
         public void MoveTo(Vector2 toPosition)
         {
             m_toPosition = toPosition;
-            m_velocity = (m_toPosition - m_playerWorldPosition) / 20;
+            m_lastDelta = m_toPosition - m_playerWorldPosition;
+            m_velocity = m_toPosition - m_playerWorldPosition;
+            m_velocity.Normalize();
+            m_velocity *= 6;
             m_moving = true;
         }
     }
