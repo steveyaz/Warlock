@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="System.Collections.Generic.List[WarlockDataTypes.Enemy]">
+    <Item>
+      <AssetName>Goblin</AssetName>
+    </Item>
+    <Item>
+      <AssetName>Goblin</AssetName>
+    </Item>
+    <Item>
+      <AssetName>Wizard</AssetName>
+    </Item>
+  </Asset>
+
+</XnaContent>
