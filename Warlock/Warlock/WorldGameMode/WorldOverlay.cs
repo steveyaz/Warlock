@@ -43,7 +43,7 @@ namespace Warlock
         {
             WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            Vector2 tilevector = new Vector2(-(WorldGameMode.WorldPosition.X % m_tilesize), -(WorldGameMode.WorldPosition.Y % m_tilesize));
+            Vector2 tilevector = new Vector2(-(WorldGameMode.m_Instance.WorldPosition.X % m_tilesize), -(WorldGameMode.m_Instance.WorldPosition.Y % m_tilesize));
             int x = 0;
             int y = 0;
 
@@ -51,14 +51,14 @@ namespace Warlock
             {
                 while (tilevector.Y < WarlockGame.m_graphics.PreferredBackBufferHeight)
                 {
-                    WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[m_maptiles[((int)WorldGameMode.WorldPosition.X / m_tilesize) + x, ((int)WorldGameMode.WorldPosition.Y / m_tilesize) + y]], tilevector, Color.White);
+                    WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[m_maptiles[((int)WorldGameMode.m_Instance.WorldPosition.X / m_tilesize) + x, ((int)WorldGameMode.m_Instance.WorldPosition.Y / m_tilesize) + y]], tilevector, Color.White);
                     y++;
                     tilevector.Y += m_tilesize;
                 }
                 x++;
                 tilevector.X += m_tilesize;
                 y = 0;
-                tilevector.Y = -(WorldGameMode.WorldPosition.Y % m_tilesize);
+                tilevector.Y = -(WorldGameMode.m_Instance.WorldPosition.Y % m_tilesize);
             }
             
             WarlockGame.m_spriteBatch.End();
@@ -84,7 +84,7 @@ namespace Warlock
             else if (touchLocation.State == TouchLocationState.Moved)
             {
                 Vector2 position = new Vector2();
-                position = WorldGameMode.WorldPosition + m_pressLocation - touchLocation.Position;
+                position = WorldGameMode.m_Instance.WorldPosition + m_pressLocation - touchLocation.Position;
                 m_pressLocation = touchLocation.Position;
                 CenterOn(position);
             }
@@ -101,7 +101,7 @@ namespace Warlock
                 position.Y = 0;
             else if (position.Y > m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight)
                 position.Y = m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight;
-            WorldGameMode.WorldPosition = position;
+            WorldGameMode.m_Instance.WorldPosition = position;
         }
     }
 }
