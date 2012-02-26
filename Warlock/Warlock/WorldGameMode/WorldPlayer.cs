@@ -12,6 +12,10 @@ namespace Warlock
     {
         public Vector2 m_playerWorldPosition;
 
+        private Vector2 m_toPosition;
+        private Vector2 m_velocity;
+        private bool m_moving = false;
+
         public WorldPlayer(int x, int y)
         {
             m_playerWorldPosition = new Vector2(x, y);
@@ -39,6 +43,27 @@ namespace Warlock
         public void InteractLocation(TouchLocation touchLocation)
         {
             // Do nothing
+        }
+
+        public void Update()
+        {
+            if (m_moving)
+            {
+                m_playerWorldPosition += m_velocity;
+                WorldGameMode.m_Instance.CenterOnPlayer();
+                if (Math.Abs(m_playerWorldPosition.X - m_toPosition.X) < 1 && Math.Abs(m_playerWorldPosition.Y - m_toPosition.Y) < 1)
+                {
+                    m_moving = false;
+                    WorldGameMode.m_Instance.ArrivedAtDestination();
+                }
+            }
+        }
+
+        public void MoveTo(Vector2 toPosition)
+        {
+            m_toPosition = toPosition;
+            m_velocity = (m_toPosition - m_playerWorldPosition) / 20;
+            m_moving = true;
         }
     }
 }
