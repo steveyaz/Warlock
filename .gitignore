@@ -1,4 +1,9 @@
-
+/WarlockDataTypes/bin
+/WarlockDataTypes/obj
+/Warlock/Warlock/bin
+/Warlock/Warlock/obj
+/Warlock/WarlockContent/bin
+/Warlock/WarlockContent/obj
 *.dll
 *.pdb
-*.suo
+*.user

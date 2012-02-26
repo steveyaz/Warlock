@@ -1,5 +1,5 @@
 Content\graywizard.xnb
-Content\mission.xnb
+Content\battle.xnb
 Content\worldmap-0-0.xnb
 Content\worldmap-0-1.xnb
 Content\worldmap-0-2.xnb
@@ -17,4 +17,6 @@ Content\worldmap-3-1.xnb
 Content\worldmap-3-2.xnb
 Content\worldmap-3-3.xnb
 Content\albador.xnb
+Content\city.xnb
+Content\center.xnb
 Content\Warlock.xnb
