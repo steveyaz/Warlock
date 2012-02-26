@@ -14,10 +14,14 @@ namespace Warlock
         Count = 4
     }
 
-    interface IGameMode : IDrawable
+    interface IGameMode
     {
         void Initialize();
 
         void Update();
+
+        void LoadContent();
+
+        void Draw();
     }
 }

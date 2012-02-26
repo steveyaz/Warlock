@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework;
 
 namespace Warlock
 {
-    class Mission : IDrawable, IInteractable
+    class Mission : DrawableBase, IInteractable
     {
         public Mission()
         {
 
         }
 
-        public void Draw()
+        public override void Draw()
         {
             
         }

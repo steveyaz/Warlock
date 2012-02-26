@@ -8,25 +8,18 @@ using Microsoft.Xna.Framework;
 
 namespace Warlock
 {
-    class WorldOverlay : IDrawable, IInteractable
+    class WorldOverlay : DrawableBase, IInteractable
     {
-        const int m_sizeX = 2400;
-        const int m_sizeY = 2400;
-        const int m_tilesize = 600;
-
-        private Vector2 m_center;
+        private const int m_sizeX = 2400;
+        private const int m_sizeY = 2400;
+        private const int m_tilesize = 600;
 
         private Vector2 m_pressLocation;
-
-        private int m_left;
-        private int m_top;
 
         private string[,] m_maptiles;
 
         public WorldOverlay()
         {
-            m_center = new Vector2(WarlockGame.m_graphics.PreferredBackBufferWidth / 2, WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
-
             m_maptiles = new string[4,4];
             m_maptiles[0,0] = "worldmap-0-0";
             m_maptiles[0,1] = "worldmap-0-1";
@@ -46,11 +39,14 @@ namespace Warlock
             m_maptiles[3,3] = "worldmap-3-3";
         }
 
-        public void Draw()
+        public override void Draw()
         {
+            int left = (int)(WorldGameMode.WorldPosition.X - WarlockGame.m_graphics.PreferredBackBufferWidth / 2);
+            int top = (int)(WorldGameMode.WorldPosition.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
+
             WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            Vector2 tilevector = new Vector2(-(m_left % m_tilesize), -(m_top % m_tilesize));
+            Vector2 tilevector = new Vector2(-(left % m_tilesize), -(top % m_tilesize));
             int x = 0;
             int y = 0;
 
@@ -58,14 +54,14 @@ namespace Warlock
             {
                 while (tilevector.Y < WarlockGame.m_graphics.PreferredBackBufferHeight)
                 {
-                    WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[m_maptiles[(m_left / m_tilesize) + x, (m_top / m_tilesize) + y]], tilevector, Color.White);
+                    WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[m_maptiles[(left / m_tilesize) + x, (top / m_tilesize) + y]], tilevector, Color.White);
                     y++;
                     tilevector.Y += m_tilesize;
                 }
                 x++;
                 tilevector.X += m_tilesize;
                 y = 0;
-                tilevector.Y = -(m_top % m_tilesize);
+                tilevector.Y = -(top % m_tilesize);
             }
             
             WarlockGame.m_spriteBatch.End();
@@ -91,28 +87,20 @@ namespace Warlock
             else if (touchLocation.State == TouchLocationState.Moved)
             {
                 Vector2 position = new Vector2();
-                position = m_center + m_pressLocation - touchLocation.Position;
+                position = WorldGameMode.WorldPosition + m_pressLocation - touchLocation.Position;
                 m_pressLocation = touchLocation.Position;
-                CenterOn(position);
+
+                if (position.X < WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
+                    position.X = WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
+                else if (position.X > m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
+                    position.X = m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
+
+                if (position.Y < WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
+                    position.Y = WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
+                else if (position.Y > m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
+                    position.Y = m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
+                WorldGameMode.CenterOn(position);
             }
-        }
-
-        public void CenterOn(Vector2 center)
-        {
-            m_center = center;
-
-            if (m_center.X < WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
-                m_center.X = WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
-            else if (m_center.X > m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2)
-                m_center.X = m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
-
-            if (m_center.Y < WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
-                m_center.Y = WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
-            else if (m_center.Y > m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2)
-                m_center.Y = m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
-
-            m_left = (int)(m_center.X - WarlockGame.m_graphics.PreferredBackBufferWidth / 2);
-            m_top = (int)(m_center.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
         }
     }
 }

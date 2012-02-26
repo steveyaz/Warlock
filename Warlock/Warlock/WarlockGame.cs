@@ -72,25 +72,10 @@ namespace Warlock
             // Create a new SpriteBatch, which can be used to draw textures.
             m_spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            m_textures.Add("graywizard", this.Content.Load<Texture2D>("graywizard"));
-            m_textures.Add("mission", this.Content.Load<Texture2D>("mission"));
-            m_textures.Add("worldmap-0-0", this.Content.Load<Texture2D>("worldmap-0-0"));
-            m_textures.Add("worldmap-0-1", this.Content.Load<Texture2D>("worldmap-0-1"));
-            m_textures.Add("worldmap-0-2", this.Content.Load<Texture2D>("worldmap-0-2"));
-            m_textures.Add("worldmap-0-3", this.Content.Load<Texture2D>("worldmap-0-3"));
-            m_textures.Add("worldmap-1-0", this.Content.Load<Texture2D>("worldmap-1-0"));
-            m_textures.Add("worldmap-1-1", this.Content.Load<Texture2D>("worldmap-1-1"));
-            m_textures.Add("worldmap-1-2", this.Content.Load<Texture2D>("worldmap-1-2"));
-            m_textures.Add("worldmap-1-3", this.Content.Load<Texture2D>("worldmap-1-3"));
-            m_textures.Add("worldmap-2-0", this.Content.Load<Texture2D>("worldmap-2-0"));
-            m_textures.Add("worldmap-2-1", this.Content.Load<Texture2D>("worldmap-2-1"));
-            m_textures.Add("worldmap-2-2", this.Content.Load<Texture2D>("worldmap-2-2"));
-            m_textures.Add("worldmap-2-3", this.Content.Load<Texture2D>("worldmap-2-3"));
-            m_textures.Add("worldmap-3-0", this.Content.Load<Texture2D>("worldmap-3-0"));
-            m_textures.Add("worldmap-3-1", this.Content.Load<Texture2D>("worldmap-3-1"));
-            m_textures.Add("worldmap-3-2", this.Content.Load<Texture2D>("worldmap-3-2"));
-            m_textures.Add("worldmap-3-3", this.Content.Load<Texture2D>("worldmap-3-3"));
+            // Give game modes a chance to load content
+            foreach (IGameMode gameMode in m_GameModes.Values)
+                gameMode.LoadContent();
+            
             m_spriteFont = this.Content.Load<SpriteFont>("Warlock");
         }
 
@@ -129,6 +114,12 @@ namespace Warlock
         public void ChangeGameMode(GameModeIndex gamemode)
         {
             m_CurrentGameMode = gamemode;
+        }
+
+        public void EnsureTexture(string assetName)
+        {
+            if (!m_textures.ContainsKey(assetName))
+                m_textures.Add(assetName, WarlockGame.m_Instance.Content.Load<Texture2D>(assetName));
         }
     }
 }

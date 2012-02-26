@@ -9,18 +9,21 @@ namespace Warlock
 {
     class SplashGameMode : IGameMode
     {
-        private List<IDrawable> m_drawable;
+        private List<DrawableBase> m_drawable;
         private List<IInteractable> m_interactable;
 
         public void Initialize()
         {
-            m_drawable = new List<IDrawable>();
+            m_drawable = new List<DrawableBase>();
             m_interactable = new List<IInteractable>();
+
+            // Buttons
             NewGameSplashButton newgame = new NewGameSplashButton();
-            ExitSplashButton exit = new ExitSplashButton();
             m_drawable.Add(newgame);
-            m_drawable.Add(exit);
             m_interactable.Add(newgame);
+            
+            ExitSplashButton exit = new ExitSplashButton();
+            m_drawable.Add(exit);
             m_interactable.Add(exit);
 
             TouchPanel.EnabledGestures = GestureType.Tap;
@@ -30,7 +33,7 @@ namespace Warlock
         {
             WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Red);
 
-            foreach (IDrawable drawable in m_drawable)
+            foreach (DrawableBase drawable in m_drawable)
                 drawable.Draw();
 
             return;
@@ -48,6 +51,11 @@ namespace Warlock
                 foreach (IInteractable interactable in m_interactable)
                     interactable.InteractGesture(gesture);
             }
+        }
+
+        public void LoadContent()
+        {
+
         }
     }
 }

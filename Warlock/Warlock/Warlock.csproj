@@ -75,6 +75,7 @@
     <Compile Include="WorldGameMode\Mission.cs" />
     <Compile Include="WorldGameMode\WorldGameMode.cs" />
     <Compile Include="WorldGameMode\WorldOverlay.cs" />
+    <Compile Include="WorldGameMode\WorldPlayer.cs" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
