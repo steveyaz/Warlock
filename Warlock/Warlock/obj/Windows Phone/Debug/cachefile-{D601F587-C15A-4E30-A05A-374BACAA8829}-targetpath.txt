@@ -1,5 +1,4 @@
 Content\graywizard.xnb
-Content\Warlock.xnb
 Content\mission.xnb
 Content\worldmap-0-0.xnb
 Content\worldmap-0-1.xnb
@@ -17,3 +16,5 @@ Content\worldmap-3-0.xnb
 Content\worldmap-3-1.xnb
 Content\worldmap-3-2.xnb
 Content\worldmap-3-3.xnb
+Content\albador.xnb
+Content\Warlock.xnb
