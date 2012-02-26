@@ -8,20 +8,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock
 {
-    class WorldPlayer : DrawableBase, IInteractable
+    class WorldPlayer : IDrawable, IInteractable
     {
-        private Vector2 m_position;
+        public Vector2 m_playerWorldPosition;
 
         public WorldPlayer()
         {
-            m_position = new Vector2(WarlockGame.m_graphics.PreferredBackBufferWidth / 2, WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
+            m_playerWorldPosition = new Vector2(WarlockGame.m_graphics.PreferredBackBufferWidth / 2, WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
         }
 
-        public override void Draw()
+        public void Draw()
         {
-            WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures["graywizard"], m_position, Color.White);
-            WarlockGame.m_spriteBatch.End();
+            Vector2 screenVector = WorldGameMode.WorldToScreen(m_playerWorldPosition);
+
+            if (screenVector.X + WarlockGame.m_textures["graywizard"].Width > 0
+                && screenVector.X < WarlockGame.m_graphics.PreferredBackBufferWidth
+                && screenVector.Y + WarlockGame.m_textures["graywizard"].Height > 0
+                && screenVector.Y < WarlockGame.m_graphics.PreferredBackBufferHeight)
+            {
+                WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+                WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures["graywizard"], screenVector, Color.White);
+                WarlockGame.m_spriteBatch.End();
+            }
         }
 
         public void InteractGesture(GestureSample gesture)

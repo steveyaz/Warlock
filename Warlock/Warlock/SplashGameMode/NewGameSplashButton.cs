@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Warlock
 {
-    class NewGameSplashButton : DrawableBase, IInteractable
+    class NewGameSplashButton : IDrawable, IInteractable
     {
         private string m_buttonText;
         private Vector2 m_textPosition;
@@ -19,7 +19,7 @@ namespace Warlock
             m_textPosition = new Vector2(WarlockGame.m_graphics.GraphicsDevice.Viewport.Width / 2, WarlockGame.m_graphics.GraphicsDevice.Viewport.Height / 2 - 30);
         }
 
-        public override void Draw()
+        public void Draw()
         {
             WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             WarlockGame.m_spriteBatch.DrawString(WarlockGame.m_spriteFont, m_buttonText, m_textPosition, Color.LightGreen, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);

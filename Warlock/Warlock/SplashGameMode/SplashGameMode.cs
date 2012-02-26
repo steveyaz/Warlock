@@ -9,12 +9,12 @@ namespace Warlock
 {
     class SplashGameMode : IGameMode
     {
-        private List<DrawableBase> m_drawable;
+        private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
 
         public void Initialize()
         {
-            m_drawable = new List<DrawableBase>();
+            m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
 
             // Buttons
@@ -33,7 +33,7 @@ namespace Warlock
         {
             WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Red);
 
-            foreach (DrawableBase drawable in m_drawable)
+            foreach (IDrawable drawable in m_drawable)
                 drawable.Draw();
 
             return;

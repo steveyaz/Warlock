@@ -12,8 +12,9 @@ namespace Warlock
     class WorldGameMode : IGameMode
     {
         public static Vector2 WorldPosition;
+        public static WorldGameMode m_Instance;
 
-        private List<DrawableBase> m_drawable;
+        private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
 
         private WorldOverlay m_worldoverlay;
@@ -21,10 +22,9 @@ namespace Warlock
 
         public void Initialize()
         {
-            m_drawable = new List<DrawableBase>();
+            m_Instance = this;
+            m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
-
-            WorldPosition = new Vector2(WarlockGame.m_graphics.PreferredBackBufferWidth / 2, WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
 
             // World map
             m_worldoverlay = new WorldOverlay();
@@ -36,6 +36,13 @@ namespace Warlock
             m_drawable.Add(m_worldPlayer);
             m_interactable.Add(m_worldPlayer);
 
+            // Center-on-player button
+            CenterButton centerButton = new CenterButton();
+            m_drawable.Add(centerButton);
+            m_interactable.Add(centerButton);
+
+            CenterOnPlayer();
+
             // Enable only certain gestures
             TouchPanel.EnabledGestures = GestureType.DoubleTap | GestureType.Pinch | GestureType.Tap;
         }
@@ -44,7 +51,7 @@ namespace Warlock
         {
             WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Blue);
 
-            foreach (DrawableBase drawable in m_drawable)
+            foreach (IDrawable drawable in m_drawable)
                 drawable.Draw();
 
             return;
@@ -94,9 +101,18 @@ namespace Warlock
             WarlockGame.m_Instance.EnsureTexture("worldmap-3-3");
         }
 
-        public static void CenterOn(Vector2 center)
+        public void CenterOnPlayer()
         {
-            WorldPosition = center;
+            Vector2 newPosition = new Vector2();
+            newPosition.X = m_worldPlayer.m_playerWorldPosition.X - WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
+            newPosition.Y = m_worldPlayer.m_playerWorldPosition.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
+
+            m_worldoverlay.CenterOn(newPosition);
+        }
+
+        public static Vector2 WorldToScreen(Vector2 worldVector)
+        {
+            return new Vector2(worldVector.X - WorldPosition.X, worldVector.Y - WorldPosition.Y);
         }
     }
 }
