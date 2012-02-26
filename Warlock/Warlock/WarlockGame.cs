@@ -55,7 +55,7 @@ namespace Warlock
 
             // initialize the different modes
             m_GameModes.Add(GameModeIndex.Splash, new SplashGameMode());
-            m_GameModes[GameModeIndex.Splash].Initialize();
+            m_GameModes[GameModeIndex.Splash].Initialize(); 
 
             m_GameModes.Add(GameModeIndex.World, new WorldGameMode());
             m_GameModes[GameModeIndex.World].Initialize();
