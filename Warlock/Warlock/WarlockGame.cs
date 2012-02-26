@@ -46,7 +46,7 @@ namespace Warlock
         /// </summary>
         protected override void Initialize()
         {
-            m_Instance = this;
+            m_Instance = this; 
             m_textures = new Dictionary<string, Texture2D>();
 
             // initialize game to splash screen
@@ -55,13 +55,13 @@ namespace Warlock
 
             // initialize the different modes
             m_GameModes.Add(GameModeIndex.Splash, new SplashGameMode());
-            m_GameModes[GameModeIndex.Splash].Initialize();
+            m_GameModes[GameModeIndex.Splash].Initialize(); 
 
             m_GameModes.Add(GameModeIndex.World, new WorldGameMode());
             m_GameModes[GameModeIndex.World].Initialize();
 
-            m_GameModes.Add(GameModeIndex.Battle, new BattleGameMode());
-            m_GameModes[GameModeIndex.Battle].Initialize();
+            m_GameModes.Add(GameModeIndex.City, new CityGameMode(CityEnum.Albador));
+            m_GameModes[GameModeIndex.City].Initialize();
 
             base.Initialize();
         }
@@ -101,7 +101,7 @@ namespace Warlock
             m_GameModes[m_CurrentGameMode].Update();
 
             base.Update(gameTime);
-        }
+        } 
 
         /// <summary>
         /// This is called when the game should draw itself.

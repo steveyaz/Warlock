@@ -11,8 +11,16 @@ namespace Warlock
         World = 1,
         City = 2,
         Battle = 3,
-        Count = 4
-    }
+        Count = 4,
+        Exit = 5
+    };
+
+    public enum CityEnum
+    {
+        Albador = 1,
+        Hibador = 2,
+        Midador = 3
+    };
 
     interface IGameMode : IDrawable
     {

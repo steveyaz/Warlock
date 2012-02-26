@@ -1,34 +1,54 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Warlock
 {
-    class SplashGameMode : IGameMode
+    class CityGameMode : IGameMode
     {
+        public static CityGameMode m_Instance;
+
         private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
 
+        CityModeBase CurrentCity;
+
+        public CityGameMode(CityEnum cityName)
+        {
+            InitCity(cityName);
+        }
+
+        private void InitCity(CityEnum city)
+        {
+            switch (city)
+            {
+                case CityEnum.Albador:
+                    CurrentCity = new Albador();
+                    break;
+                case CityEnum.Hibador:
+                    CurrentCity = new Hibador();
+                    break;
+                case CityEnum.Midador:
+                    CurrentCity = new Midador();
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public void Initialize()
         {
+            m_Instance = this;
             m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
 
-            // Buttons
-            NewGameSplashButton newgame = new NewGameSplashButton();
-            m_drawable.Add(newgame);
-            m_interactable.Add(newgame);
-            
-            ExitSplashButton exit = new ExitSplashButton();
-            m_drawable.Add(exit);
-            m_interactable.Add(exit);
 
-            AlbadorSplashButton albador = new AlbadorSplashButton();
-            m_drawable.Add(albador);
-            m_interactable.Add(albador);
+            m_drawable.Add(CurrentCity);
+            m_interactable.Add(CurrentCity);
 
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
@@ -57,9 +77,11 @@ namespace Warlock
             }
         }
 
+        
+
         public void LoadContent()
         {
-
+            WarlockGame.m_Instance.EnsureTexture(CurrentCity.CityStr);
         }
     }
 }
