@@ -101,7 +101,7 @@ namespace Warlock
             m_GameModes[m_CurrentGameMode].Update();
 
             base.Update(gameTime);
-        }
+        } 
 
         /// <summary>
         /// This is called when the game should draw itself.
