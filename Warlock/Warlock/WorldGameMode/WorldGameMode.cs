@@ -21,6 +21,8 @@ namespace Warlock
         private WorldOverlay m_worldoverlay;
         private WorldPlayer m_worldPlayer;
 
+        private IWorldEvent m_worldEventDestination;
+
         public void Initialize()
         {
             m_Instance = this;
@@ -32,6 +34,22 @@ namespace Warlock
             m_drawable.Add(m_worldoverlay);
             m_interactable.Add(m_worldoverlay);
 
+            // Missions
+            Battle mission1 = new Battle(800, 800);
+            m_drawable.Add(mission1);
+            m_interactable.Add(mission1);
+            Battle mission2 = new Battle(1800, 600);
+            m_drawable.Add(mission2);
+            m_interactable.Add(mission2);
+
+            // Cities
+            City city1 = new City(600, 300);
+            m_drawable.Add(city1);
+            m_interactable.Add(city1);
+            City city2 = new City(1200, 900);
+            m_drawable.Add(city2);
+            m_interactable.Add(city2);
+
             // Player on the map
             m_worldPlayer = new WorldPlayer(200, 200);
             m_drawable.Add(m_worldPlayer);
@@ -41,14 +59,6 @@ namespace Warlock
             CenterButton centerButton = new CenterButton();
             m_drawable.Add(centerButton);
             m_interactable.Add(centerButton);
-
-            // Missions
-            Mission mission1 = new Mission(800, 800);
-            m_drawable.Add(mission1);
-            m_interactable.Add(mission1);
-            Mission mission2 = new Mission(1800, 600);
-            m_drawable.Add(mission2);
-            m_interactable.Add(mission2);
 
             CenterOnPlayer();
 
@@ -86,13 +96,16 @@ namespace Warlock
                     foreach (IInteractable interactable in m_interactable)
                         interactable.InteractLocation(touchCollection[0]);
             }
+
+            m_worldPlayer.Update();
         }
 
         public void LoadContent()
         {
             WarlockGame.m_Instance.EnsureTexture("graywizard");
-            WarlockGame.m_Instance.EnsureTexture("mission");
+            WarlockGame.m_Instance.EnsureTexture("battle");
             WarlockGame.m_Instance.EnsureTexture("center");
+            WarlockGame.m_Instance.EnsureTexture("city");
             WarlockGame.m_Instance.EnsureTexture("worldmap-0-0");
             WarlockGame.m_Instance.EnsureTexture("worldmap-0-1");
             WarlockGame.m_Instance.EnsureTexture("worldmap-0-2");
@@ -118,6 +131,21 @@ namespace Warlock
             newPosition.Y = m_worldPlayer.m_playerWorldPosition.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
 
             m_worldoverlay.CenterOn(newPosition);
+        }
+
+        public void MovePlayer(Vector2 toPosition)
+        {
+            m_worldPlayer.MoveTo(toPosition);
+        }
+
+        public void MarkDestination(IWorldEvent worldEvent)
+        {
+            m_worldEventDestination = worldEvent;
+        }
+
+        public void ArrivedAtDestination()
+        {
+            m_worldEventDestination.PlayerEnter();
         }
 
         public static Vector2 WorldToScreen(Vector2 worldVector)

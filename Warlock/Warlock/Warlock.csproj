@@ -65,6 +65,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BattleGameMode\BattleGameMode.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IGameMode.cs" />
     <Compile Include="IInteractable.cs" />
@@ -73,7 +74,9 @@
     <Compile Include="SplashGameMode\NewGameSplashButton.cs" />
     <Compile Include="SplashGameMode\SplashGameMode.cs" />
     <Compile Include="WorldGameMode\CenterButton.cs" />
-    <Compile Include="WorldGameMode\Mission.cs" />
+    <Compile Include="WorldGameMode\City.cs" />
+    <Compile Include="WorldGameMode\Battle.cs" />
+    <Compile Include="WorldGameMode\IWorldEvent.cs" />
     <Compile Include="WorldGameMode\WorldGameMode.cs" />
     <Compile Include="WorldGameMode\WorldOverlay.cs" />
     <Compile Include="WorldGameMode\WorldPlayer.cs" />
@@ -101,6 +104,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
