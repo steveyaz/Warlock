@@ -60,6 +60,9 @@ namespace Warlock
             m_GameModes.Add(GameModeIndex.World, new WorldGameMode());
             m_GameModes[GameModeIndex.World].Initialize();
 
+            m_GameModes.Add(GameModeIndex.Battle, new BattleGameMode());
+            m_GameModes[GameModeIndex.Battle].Initialize();
+
             m_GameModes.Add(GameModeIndex.City, new CityGameMode(CityEnum.Albador));
             m_GameModes[GameModeIndex.City].Initialize();
 

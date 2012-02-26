@@ -7,4 +7,5 @@
 *.dll
 *.pdb
 *.user
+*.suo
 Warlock/Warlock/Warlock.csproj.Debug.cachefile
