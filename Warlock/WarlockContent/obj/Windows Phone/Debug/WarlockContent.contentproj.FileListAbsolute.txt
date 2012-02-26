@@ -1,2 +1,0 @@
-C:\Users\steveyaz\Desktop\Warlock\Warlock\WarlockContent\obj\Windows Phone\Debug\ResolveAssemblyReference.cache
-C:\Users\Troy\Documents\Projects\Warlock\Warlock\WarlockContent\obj\Windows Phone\Debug\ResolveAssemblyReference.cache
