@@ -172,6 +172,15 @@
       <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\worldmap-3-3.xnb</Output>
       <Time>2012-02-25T00:35:55.3448187-08:00</Time>
     </Item>
+    <Item>
+      <Source>center.png</Source>
+      <Name>center</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\steveyaz\Desktop\Warlock\Warlock\Warlock\bin\Windows Phone\Debug\Content\center.xnb</Output>
+      <Time>2012-02-25T20:52:28.9406649-08:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{D601F587-C15A-4E30-A05A-374BACAA8829}</ContentProjectGUID>

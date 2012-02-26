@@ -11,8 +11,9 @@ namespace Warlock
 {
     class WorldGameMode : IGameMode
     {
-        public static Vector2 WorldPosition;
         public static WorldGameMode m_Instance;
+
+        public Vector2 WorldPosition;
 
         private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
@@ -32,7 +33,7 @@ namespace Warlock
             m_interactable.Add(m_worldoverlay);
 
             // Player on the map
-            m_worldPlayer = new WorldPlayer();
+            m_worldPlayer = new WorldPlayer(200, 200);
             m_drawable.Add(m_worldPlayer);
             m_interactable.Add(m_worldPlayer);
 
@@ -40,6 +41,14 @@ namespace Warlock
             CenterButton centerButton = new CenterButton();
             m_drawable.Add(centerButton);
             m_interactable.Add(centerButton);
+
+            // Missions
+            Mission mission1 = new Mission(800, 800);
+            m_drawable.Add(mission1);
+            m_interactable.Add(mission1);
+            Mission mission2 = new Mission(1800, 600);
+            m_drawable.Add(mission2);
+            m_interactable.Add(mission2);
 
             CenterOnPlayer();
 
@@ -83,6 +92,7 @@ namespace Warlock
         {
             WarlockGame.m_Instance.EnsureTexture("graywizard");
             WarlockGame.m_Instance.EnsureTexture("mission");
+            WarlockGame.m_Instance.EnsureTexture("center");
             WarlockGame.m_Instance.EnsureTexture("worldmap-0-0");
             WarlockGame.m_Instance.EnsureTexture("worldmap-0-1");
             WarlockGame.m_Instance.EnsureTexture("worldmap-0-2");
@@ -112,7 +122,7 @@ namespace Warlock
 
         public static Vector2 WorldToScreen(Vector2 worldVector)
         {
-            return new Vector2(worldVector.X - WorldPosition.X, worldVector.Y - WorldPosition.Y);
+            return new Vector2(worldVector.X - m_Instance.WorldPosition.X, worldVector.Y - m_Instance.WorldPosition.Y);
         }
     }
 }

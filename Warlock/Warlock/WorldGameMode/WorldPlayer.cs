@@ -12,9 +12,9 @@ namespace Warlock
     {
         public Vector2 m_playerWorldPosition;
 
-        public WorldPlayer()
+        public WorldPlayer(int x, int y)
         {
-            m_playerWorldPosition = new Vector2(WarlockGame.m_graphics.PreferredBackBufferWidth / 2, WarlockGame.m_graphics.PreferredBackBufferHeight / 2);
+            m_playerWorldPosition = new Vector2(x, y);
         }
 
         public void Draw()

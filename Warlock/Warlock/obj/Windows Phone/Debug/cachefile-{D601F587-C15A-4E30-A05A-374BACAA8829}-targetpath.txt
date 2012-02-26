@@ -17,3 +17,4 @@ Content\worldmap-3-0.xnb
 Content\worldmap-3-1.xnb
 Content\worldmap-3-2.xnb
 Content\worldmap-3-3.xnb
+Content\center.xnb
