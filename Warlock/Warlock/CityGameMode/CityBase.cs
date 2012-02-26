@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Warlock
 {
-    public class CityBase : IDrawable, IInteractable
+    public class CityModeBase : IDrawable, IInteractable
     {
         public string CityStr { get; set; }
         private Rectangle rect;
-        public CityBase()
+        public CityModeBase()
         {
             rect = new Rectangle(0, 0, WarlockGame.m_graphics.PreferredBackBufferWidth, WarlockGame.m_graphics.PreferredBackBufferHeight);
         }
@@ -35,17 +35,17 @@ namespace Warlock
 
         }
 
-        public void InitCityString(City city)
+        public void InitCityString(CityEnum city)
         {
             switch (city)
             {
-                case City.Albador:
+                case CityEnum.Albador:
                     CityStr = "albador";
                     break;
-                case City.Hibador:
+                case CityEnum.Hibador:
                     CityStr = "hibador";
                     break;
-                case City.Midador:
+                case CityEnum.Midador:
                     CityStr = "midador";
                     break;
                 default:

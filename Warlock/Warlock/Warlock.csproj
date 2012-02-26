@@ -66,10 +66,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleGameMode\BattleGameMode.cs" />
+    <Compile Include="CityGameMode\Cities\Albador.cs" />
+    <Compile Include="CityGameMode\Cities\Hibador.cs" />
+    <Compile Include="CityGameMode\Cities\Midador.cs" />
+    <Compile Include="CityGameMode\CityBase.cs" />
+    <Compile Include="CityGameMode\CityGameMode.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IGameMode.cs" />
     <Compile Include="IInteractable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashGameMode\AlbadorSplashButton.cs" />
     <Compile Include="SplashGameMode\ExitSplashButton.cs" />
     <Compile Include="SplashGameMode\NewGameSplashButton.cs" />
     <Compile Include="SplashGameMode\SplashGameMode.cs" />

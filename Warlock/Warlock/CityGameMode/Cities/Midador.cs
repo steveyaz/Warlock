@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Warlock
 {
-    class Midador : CityBase
+    class Midador : CityModeBase
     {
         public Midador()
         {
-            base.InitCityString(City.Midador);
+            base.InitCityString(CityEnum.Midador);
         }
     }
 }

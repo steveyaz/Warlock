@@ -15,24 +15,24 @@ namespace Warlock
         private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
 
-        CityBase CurrentCity;
+        CityModeBase CurrentCity;
 
-        public CityGameMode(City cityName)
+        public CityGameMode(CityEnum cityName)
         {
             InitCity(cityName);
         }
 
-        private void InitCity(City city)
+        private void InitCity(CityEnum city)
         {
             switch (city)
             {
-                case City.Albador:
+                case CityEnum.Albador:
                     CurrentCity = new Albador();
                     break;
-                case City.Hibador:
+                case CityEnum.Hibador:
                     CurrentCity = new Hibador();
                     break;
-                case City.Midador:
+                case CityEnum.Midador:
                     CurrentCity = new Midador();
                     break;
                 default:

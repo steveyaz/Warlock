@@ -1,9 +1,4 @@
 
-Warlock/WarlockContent/obj/Windows Phone/Debug/WarlockContent.contentproj.FileListAbsolute.txt
-Warlock/WarlockContent/obj/Windows Phone/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-Warlock/Warlock/obj/Windows Phone/Debug/Warlock.csproj.FileListAbsolute.txt
-Warlock/Warlock/obj/Windows Phone/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-Warlock/Warlock/obj/Windows Phone/Debug/ContentPipeline-{D601F587-C15A-4E30-A05A-374BACAA8829}.xml
-Warlock/Warlock/obj/Windows Phone/Debug/cachefile-{D601F587-C15A-4E30-A05A-374BACAA8829}-targetpath.txt
-Warlock/Warlock/IGameMode.cs
-Warlock.suo
+*.dll
+*.pdb
+*.suo

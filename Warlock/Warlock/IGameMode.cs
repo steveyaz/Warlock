@@ -15,7 +15,7 @@ namespace Warlock
         Exit = 5
     };
 
-    public enum City
+    public enum CityEnum
     {
         Albador = 1,
         Hibador = 2,

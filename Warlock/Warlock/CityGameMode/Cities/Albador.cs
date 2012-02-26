@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Warlock
 {
-    public class Albador : CityBase
+    public class Albador : CityModeBase
     {
         public Albador()
         {
-            base.InitCityString(City.Albador);
+            base.InitCityString(CityEnum.Albador);
         }
 
         // Any interesting things that Albador should do that other cities don't have should go here.
