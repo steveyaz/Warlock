@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{0590E2A9-72B0-4835-971A-D6B18BE645EB}</ProjectGuid>
@@ -71,6 +71,12 @@
     <Compile Include="CityGameMode\Cities\Midador.cs" />
     <Compile Include="CityGameMode\CityBase.cs" />
     <Compile Include="CityGameMode\CityGameMode.cs" />
+    <Compile Include="ContentPipelineObjects\BattleContent.cs" />
+    <Compile Include="ContentPipelineObjects\BattleContentListReader.cs" />
+    <Compile Include="ContentPipelineObjects\BattleContentReader.cs" />
+    <Compile Include="ContentPipelineObjects\CityContent.cs" />
+    <Compile Include="ContentPipelineObjects\CityContentReader.cs" />
+    <Compile Include="ContentPipelineObjects\WorldMapObject.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IGameMode.cs" />
     <Compile Include="IInteractable.cs" />
@@ -105,6 +111,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\WarlockDataTypes\WarlockDataTypes.csproj">
+      <Project>{AB620549-87B2-4AE7-BBA4-F2ED59552E77}</Project>
+      <Name>WarlockDataTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WarlockContent\WarlockContent.contentproj">
       <Name>WarlockContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{2436DF81-1F29-4D5A-A92F-3B107471CBB9}</ProjectGuid>
+    <ProjectGuid>{AB620549-87B2-4AE7-BBA4-F2ED59552E77}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Windows Phone</Platform>
@@ -14,7 +14,7 @@
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows Phone</XnaPlatform>
     <XnaProfile>Reach</XnaProfile>
-    <XnaCrossPlatformGroupID>ecfae2a5-8ee0-4db2-b5ba-7ee1030e5d7d</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>2f06300b-d850-4c4d-917c-9cc9a5dd0cb9</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
     <XnaRefreshLevel>1</XnaRefreshLevel>
   </PropertyGroup>
@@ -59,7 +59,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enemy.cs" />
+    <Compile Include="DataTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

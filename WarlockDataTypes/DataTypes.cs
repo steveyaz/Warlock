@@ -12,8 +12,17 @@ using Microsoft.Xna.Framework.Media;
 
 namespace WarlockDataTypes
 {
-    public class Enemy
+    public class CityData
     {
-        public string AssetName;
+        public string CityID;
+        public int WorldMapXCoord;
+        public int WorldMapYCoord;
+    }
+
+    public class BattleData
+    {
+        public string BattleID;
+        public int WorldMapXCoord;
+        public int WorldMapYCoord;
     }
 }

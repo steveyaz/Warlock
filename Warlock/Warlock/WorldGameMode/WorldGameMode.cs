@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using System.Xml;
+using WarlockDataTypes;
 
 namespace Warlock
 {
@@ -20,6 +22,8 @@ namespace Warlock
 
         private WorldOverlay m_worldoverlay;
         private WorldPlayer m_worldPlayer;
+        private BattleData[] m_worldMapBattles;
+        private CityData[] m_worldMapCities;
 
         private IWorldEvent m_worldEventDestination;
 
@@ -33,22 +37,6 @@ namespace Warlock
             m_worldoverlay = new WorldOverlay();
             m_drawable.Add(m_worldoverlay);
             m_interactable.Add(m_worldoverlay);
-
-            // Missions
-            Battle mission1 = new Battle(800, 800);
-            m_drawable.Add(mission1);
-            m_interactable.Add(mission1);
-            Battle mission2 = new Battle(1800, 600);
-            m_drawable.Add(mission2);
-            m_interactable.Add(mission2);
-
-            // Cities
-            City city1 = new City(600, 300);
-            m_drawable.Add(city1);
-            m_interactable.Add(city1);
-            City city2 = new City(1200, 900);
-            m_drawable.Add(city2);
-            m_interactable.Add(city2);
 
             // Player on the map
             m_worldPlayer = new WorldPlayer(200, 200);
@@ -102,6 +90,25 @@ namespace Warlock
 
         public void LoadContent()
         {
+            m_worldMapBattles = WarlockGame.m_Instance.Content.Load<BattleData[]>(@"worldmapbattles");
+            m_worldMapCities = WarlockGame.m_Instance.Content.Load<CityData[]>(@"worldmapcities");
+
+            // Battles
+            foreach (BattleData battleData in m_worldMapBattles)
+            {
+                Battle battle = new Battle(battleData.BattleID, battleData.WorldMapXCoord, battleData.WorldMapYCoord);
+                m_drawable.Add(battle);
+                m_interactable.Add(battle);
+            }
+
+            // Cities
+            foreach (CityData cityData in m_worldMapCities)
+            {
+                City city = new City(cityData.CityID, cityData.WorldMapXCoord, cityData.WorldMapYCoord);
+                m_drawable.Add(city);
+                m_interactable.Add(city);
+            }
+
             WarlockGame.m_Instance.EnsureTexture("graywizard");
             WarlockGame.m_Instance.EnsureTexture("battle");
             WarlockGame.m_Instance.EnsureTexture("center");

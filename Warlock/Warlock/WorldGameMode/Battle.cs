@@ -11,9 +11,11 @@ namespace Warlock
     class Battle : IWorldEvent, IDrawable, IInteractable
     {
         public Vector2 m_battlePosition;
+        private string m_battleID;
 
-        public Battle(int x, int y)
+        public Battle(string battleID, int x, int y)
         {
+            m_battleID = battleID;
             m_battlePosition = new Vector2(x, y);
         }
 
@@ -21,13 +23,13 @@ namespace Warlock
         {
             Vector2 screenVector = WorldGameMode.WorldToScreen(m_battlePosition);
 
-            if (screenVector.X + WarlockGame.m_textures["battle"].Width > 0
+            if (screenVector.X + WarlockGame.m_textures[m_battleID].Width > 0
                 && screenVector.X < WarlockGame.m_graphics.PreferredBackBufferWidth
-                && screenVector.Y + WarlockGame.m_textures["battle"].Height > 0
+                && screenVector.Y + WarlockGame.m_textures[m_battleID].Height > 0
                 && screenVector.Y < WarlockGame.m_graphics.PreferredBackBufferHeight)
             {
                 WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-                WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures["battle"], screenVector, Color.White);
+                WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[m_battleID], screenVector, Color.White);
                 WarlockGame.m_spriteBatch.End();
             }
         }
@@ -36,8 +38,8 @@ namespace Warlock
         {
             Vector2 screenVector = WorldGameMode.WorldToScreen(m_battlePosition);
             if (gesture.GestureType == GestureType.Tap
-                && gesture.Position.X < screenVector.X + WarlockGame.m_textures["battle"].Width && gesture.Position.X > screenVector.X
-                && gesture.Position.Y < screenVector.Y + WarlockGame.m_textures["battle"].Height && gesture.Position.Y > screenVector.Y)
+                && gesture.Position.X < screenVector.X + WarlockGame.m_textures[m_battleID].Width && gesture.Position.X > screenVector.X
+                && gesture.Position.Y < screenVector.Y + WarlockGame.m_textures[m_battleID].Height && gesture.Position.Y > screenVector.Y)
             {
                 WorldGameMode.m_Instance.MarkDestination(this);
                 WorldGameMode.m_Instance.MovePlayer(m_battlePosition);

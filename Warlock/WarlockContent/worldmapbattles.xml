@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="WarlockDataTypes.BattleData[]">
+    <Item>
+      <BattleID>battle</BattleID>
+      <WorldMapXCoord>674</WorldMapXCoord>
+      <WorldMapYCoord>363</WorldMapYCoord>
+    </Item>
+    <Item>
+      <BattleID>battle</BattleID>
+      <WorldMapXCoord>125</WorldMapXCoord>
+      <WorldMapYCoord>999</WorldMapYCoord>
+    </Item>
+    <Item>
+      <BattleID>battle</BattleID>
+      <WorldMapXCoord>2278</WorldMapXCoord>
+      <WorldMapYCoord>2165</WorldMapYCoord>
+    </Item>
+    <Item>
+      <BattleID>battle</BattleID>
+      <WorldMapXCoord>1654</WorldMapXCoord>
+      <WorldMapYCoord>1201</WorldMapYCoord>
+    </Item>
+    <Item>
+      <BattleID>battle</BattleID>
+      <WorldMapXCoord>666</WorldMapXCoord>
+      <WorldMapYCoord>267</WorldMapYCoord>
+    </Item>
+    <Item>
+      <BattleID>battle</BattleID>
+      <WorldMapXCoord>983</WorldMapXCoord>
+      <WorldMapYCoord>984</WorldMapYCoord>
+    </Item>
+    <Item>
+      <BattleID>battle</BattleID>
+      <WorldMapXCoord>2100</WorldMapXCoord>
+      <WorldMapYCoord>427</WorldMapYCoord>
+    </Item>
+  </Asset>
+</XnaContent>

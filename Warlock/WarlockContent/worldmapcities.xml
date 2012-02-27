@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="WarlockDataTypes.CityData[]">
+    <Item>
+      <CityID>city</CityID>
+      <WorldMapXCoord>240</WorldMapXCoord>
+      <WorldMapYCoord>119</WorldMapYCoord>
+    </Item>
+    <Item>
+      <CityID>city</CityID>
+      <WorldMapXCoord>692</WorldMapXCoord>
+      <WorldMapYCoord>480</WorldMapYCoord>
+    </Item>
+    <Item>
+      <CityID>city</CityID>
+      <WorldMapXCoord>2198</WorldMapXCoord>
+      <WorldMapYCoord>324</WorldMapYCoord>
+    </Item>
+    <Item>
+      <CityID>city</CityID>
+      <WorldMapXCoord>482</WorldMapXCoord>
+      <WorldMapYCoord>145</WorldMapYCoord>
+    </Item>
+    <Item>
+      <CityID>city</CityID>
+      <WorldMapXCoord>654</WorldMapXCoord>
+      <WorldMapYCoord>954</WorldMapYCoord>
+    </Item>
+    <Item>
+      <CityID>city</CityID>
+      <WorldMapXCoord>187</WorldMapXCoord>
+      <WorldMapYCoord>600</WorldMapYCoord>
+    </Item>
+    <Item>
+      <CityID>city</CityID>
+      <WorldMapXCoord>599</WorldMapXCoord>
+      <WorldMapYCoord>943</WorldMapYCoord>
+    </Item>
+  </Asset>
+</XnaContent>
