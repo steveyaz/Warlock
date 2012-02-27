@@ -35,10 +35,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="worldmapcities.xml">
-      <Name>worldmapcities</Name>
+    <Compile Include="worldmapobjects.xml">
+      <Name>worldmapobjects</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -170,13 +171,6 @@
       <Project>{AB620549-87B2-4AE7-BBA4-F2ED59552E77}</Project>
       <Name>WarlockDataTypes</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="worldmapbattles.xml">
-      <Name>worldmapbattles</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

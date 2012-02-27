@@ -22,8 +22,7 @@ namespace Warlock
 
         private WorldOverlay m_worldoverlay;
         private WorldPlayer m_worldPlayer;
-        private BattleData[] m_worldMapBattles;
-        private CityData[] m_worldMapCities;
+        private WorldMapObjectData[] m_worldMapObjects;
 
         private IWorldEvent m_worldEventDestination;
 
@@ -90,23 +89,14 @@ namespace Warlock
 
         public void LoadContent()
         {
-            m_worldMapBattles = WarlockGame.m_Instance.Content.Load<BattleData[]>(@"worldmapbattles");
-            m_worldMapCities = WarlockGame.m_Instance.Content.Load<CityData[]>(@"worldmapcities");
+            m_worldMapObjects = WarlockGame.m_Instance.Content.Load<WorldMapObjectData[]>(@"worldmapobjects");
 
-            // Battles
-            foreach (BattleData battleData in m_worldMapBattles)
+            // Load objects from XML
+            foreach (WorldMapObjectData battleData in m_worldMapObjects)
             {
-                Battle battle = new Battle(battleData.BattleID, battleData.WorldMapXCoord, battleData.WorldMapYCoord);
+                Battle battle = new Battle(battleData.ObjectID, battleData.WorldMapXCoord, battleData.WorldMapYCoord);
                 m_drawable.Add(battle);
                 m_interactable.Add(battle);
-            }
-
-            // Cities
-            foreach (CityData cityData in m_worldMapCities)
-            {
-                City city = new City(cityData.CityID, cityData.WorldMapXCoord, cityData.WorldMapYCoord);
-                m_drawable.Add(city);
-                m_interactable.Add(city);
             }
 
             WarlockGame.m_Instance.EnsureTexture("graywizard");

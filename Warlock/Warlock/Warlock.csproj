@@ -71,12 +71,6 @@
     <Compile Include="CityGameMode\Cities\Midador.cs" />
     <Compile Include="CityGameMode\CityBase.cs" />
     <Compile Include="CityGameMode\CityGameMode.cs" />
-    <Compile Include="ContentPipelineObjects\BattleContent.cs" />
-    <Compile Include="ContentPipelineObjects\BattleContentListReader.cs" />
-    <Compile Include="ContentPipelineObjects\BattleContentReader.cs" />
-    <Compile Include="ContentPipelineObjects\CityContent.cs" />
-    <Compile Include="ContentPipelineObjects\CityContentReader.cs" />
-    <Compile Include="ContentPipelineObjects\WorldMapObject.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IGameMode.cs" />
     <Compile Include="IInteractable.cs" />
