@@ -21,10 +21,10 @@ namespace Warlock
         private List<IInteractable> m_interactable;
 
         private WorldOverlay m_worldoverlay;
-        private WorldPlayer m_worldPlayer;
+        public WorldPlayer m_worldPlayer;
         private WorldMapObjectData[] m_worldMapObjects;
 
-        private IWorldEvent m_worldEventDestination;
+        public IWorldEvent m_worldEventDestination;
 
         public void Initialize()
         {

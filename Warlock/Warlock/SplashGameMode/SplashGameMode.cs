@@ -26,10 +26,6 @@ namespace Warlock
             m_drawable.Add(exit);
             m_interactable.Add(exit);
 
-            AlbadorSplashButton albador = new AlbadorSplashButton();
-            m_drawable.Add(albador);
-            m_interactable.Add(albador);
-
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
 
