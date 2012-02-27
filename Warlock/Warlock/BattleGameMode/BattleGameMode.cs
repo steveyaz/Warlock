@@ -21,7 +21,7 @@ namespace Warlock
 
         public void Draw()
         {
-            WarlockGame.m_graphics.GraphicsDevice.Clear(Color.ForestGreen);
+            WarlockGame.Graphics.GraphicsDevice.Clear(Color.ForestGreen);
 
             foreach (IDrawable drawable in m_drawable)
                 drawable.Draw();
@@ -33,7 +33,7 @@ namespace Warlock
         {
             // Go back to splash
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                WarlockGame.m_Instance.ChangeGameMode(GameModeIndex.World);
+                WarlockGame.Instance.EnterWorldGameMode();
 
             if (TouchPanel.IsGestureAvailable)
             {

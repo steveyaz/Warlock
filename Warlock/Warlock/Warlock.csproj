@@ -80,9 +80,9 @@
     <Compile Include="SplashGameMode\NewGameSplashButton.cs" />
     <Compile Include="SplashGameMode\SplashGameMode.cs" />
     <Compile Include="WorldGameMode\CenterButton.cs" />
-    <Compile Include="WorldGameMode\City.cs" />
-    <Compile Include="WorldGameMode\Battle.cs" />
-    <Compile Include="WorldGameMode\IWorldEvent.cs" />
+    <Compile Include="WorldGameMode\WorldCity.cs" />
+    <Compile Include="WorldGameMode\WorldBattle.cs" />
+    <Compile Include="WorldGameMode\WorldObjectBase.cs" />
     <Compile Include="WorldGameMode\WorldGameMode.cs" />
     <Compile Include="WorldGameMode\WorldOverlay.cs" />
     <Compile Include="WorldGameMode\WorldPlayer.cs" />

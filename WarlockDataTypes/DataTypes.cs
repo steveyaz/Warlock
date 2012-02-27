@@ -12,10 +12,31 @@ using Microsoft.Xna.Framework.Media;
 
 namespace WarlockDataTypes
 {
+    public enum WorldMapObjectType
+    {
+        City = 0,
+        Battle = 1,
+    }
+
     public class WorldMapObjectData
     {
+        public WorldMapObjectType ObjectType;
         public string ObjectID;
+        public string WorldMapAssetName;
         public int WorldMapXCoord;
         public int WorldMapYCoord;
+    }
+
+    public class WorldMapTileData
+    {
+        public string TileAssetName;
+        public int TileXCoord;
+        public int TileYCoord;
+    }
+
+    public class CityData
+    {
+        public string ObjectID;
+        // other city data
     }
 }

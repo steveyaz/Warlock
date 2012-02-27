@@ -18,7 +18,12 @@ namespace Warlock
 
         CityBase CurrentCity;
 
-        private void InitCity(CityEnum city)
+
+        // STEVEYAZ - added this to show you what I was thinking for passing the city context information to the game mode
+        public string CityAssetName { get; set; }
+
+
+        /*private void InitCity(CityEnum city)
         {
             switch (city)
             {
@@ -34,7 +39,7 @@ namespace Warlock
                 default:
                     break;
             }
-        }
+        }*/
 
         public void Initialize()
         {
@@ -42,10 +47,16 @@ namespace Warlock
             m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
 
-            WorldGameMode wgm = (WorldGameMode)WarlockGame.m_Instance.m_GameModes[GameModeIndex.World];
-            WorldCity CurrentCity = (WorldCity)wgm.m_worldEventDestination;
+            //WorldGameMode wgm = (WorldGameMode)WarlockGame.Instance.m_worldGameMode;
+            //WorldCity CurrentCity = (WorldCity)wgm.m_worldEventDestination;
+            //InitCity(CityEnum.Albador);
 
-            InitCity(CityEnum.Albador);
+            // STEVEYAZ - not actually what we should do, but showing how I thought CityAssetName could be used
+            if (CityAssetName == "albador")
+                CurrentCity = new Albador();
+            else
+                CurrentCity = new Hibador();
+
             m_drawable.Add(this.CurrentCity);
             m_interactable.Add(this.CurrentCity);
 
@@ -59,7 +70,7 @@ namespace Warlock
         public void Draw()
         {
             // Build draw list based on player location.
-            WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Red);
+            WarlockGame.Graphics.GraphicsDevice.Clear(Color.Red);
 
             foreach (IDrawable idraw in m_drawable)
                 idraw.Draw();
@@ -71,7 +82,7 @@ namespace Warlock
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                WarlockGame.m_Instance.ChangeGameMode(GameModeIndex.World);
+                WarlockGame.Instance.EnterWorldGameMode();
 
             if (TouchPanel.IsGestureAvailable)
             {
@@ -83,6 +94,8 @@ namespace Warlock
 
         public void LoadContent()
         {
+            foreach (IDrawable idraw in m_drawable)
+                idraw.LoadContent();
         }
     }
 }

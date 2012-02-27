@@ -11,20 +11,25 @@ using WarlockDataTypes;
 
 namespace Warlock
 {
-    class WorldGameMode : IGameMode
+    public class WorldGameMode : IGameMode
     {
         public static WorldGameMode m_Instance;
 
-        public Vector2 WorldPosition;
+        private Vector2 m_worldPosition;
+        public Vector2 WorldPosition
+        {
+            get
+            {
+                return m_worldPosition;
+            }
+        }
 
         private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
 
         private WorldOverlay m_worldoverlay;
-        public WorldPlayer m_worldPlayer;
-        private WorldMapObjectData[] m_worldMapObjects;
-
-        public IWorldEvent m_worldEventDestination;
+        private WorldPlayer m_worldPlayer;
+        private WorldObjectBase m_worldEventDestination;
 
         public void Initialize()
         {
@@ -55,7 +60,7 @@ namespace Warlock
 
         public void Draw()
         {
-            WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Blue);
+            WarlockGame.Graphics.GraphicsDevice.Clear(Color.Blue);
 
             foreach (IDrawable drawable in m_drawable)
                 drawable.Draw();
@@ -67,7 +72,7 @@ namespace Warlock
         {
             // Go back to splash
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                WarlockGame.m_Instance.ChangeGameMode(GameModeIndex.Splash);
+                WarlockGame.Instance.ChangeGameMode(new SplashGameMode());
 
             if (TouchPanel.IsGestureAvailable)
             {
@@ -89,45 +94,43 @@ namespace Warlock
 
         public void LoadContent()
         {
-            m_worldMapObjects = WarlockGame.m_Instance.Content.Load<WorldMapObjectData[]>(@"worldmapobjects");
+            WorldMapObjectData[] worldMapObjects = WarlockGame.Instance.Content.Load<WorldMapObjectData[]>(@"worldmapobjects");
 
             // Load objects from XML
-            foreach (WorldMapObjectData battleData in m_worldMapObjects)
+            foreach (WorldMapObjectData objectData in worldMapObjects)
             {
-                Battle battle = new Battle(battleData.ObjectID, battleData.WorldMapXCoord, battleData.WorldMapYCoord);
-                m_drawable.Add(battle);
-                m_interactable.Add(battle);
+                WorldObjectBase worldObjectBase;
+
+                if (objectData.ObjectType == WorldMapObjectType.City)
+                {
+                    worldObjectBase = new WorldCity(objectData.WorldMapAssetName, objectData.ObjectID, objectData.WorldMapXCoord, objectData.WorldMapYCoord);
+                    m_drawable.Add(worldObjectBase);
+                    m_interactable.Add(worldObjectBase);
+                }
+                else if (objectData.ObjectType == WorldMapObjectType.Battle)
+                {
+                    worldObjectBase = new WorldBattle(objectData.WorldMapAssetName, objectData.ObjectID, objectData.WorldMapXCoord, objectData.WorldMapYCoord);
+                    m_drawable.Add(worldObjectBase);
+                    m_interactable.Add(worldObjectBase);
+                }
             }
 
-            WarlockGame.m_Instance.EnsureTexture("graywizard");
-            WarlockGame.m_Instance.EnsureTexture("battle");
-            WarlockGame.m_Instance.EnsureTexture("center");
-            WarlockGame.m_Instance.EnsureTexture("city");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-0-0");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-0-1");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-0-2");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-0-3");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-1-0");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-1-1");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-1-2");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-1-3");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-2-0");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-2-1");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-2-2");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-2-3");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-3-0");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-3-1");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-3-2");
-            WarlockGame.m_Instance.EnsureTexture("worldmap-3-3");
+            foreach (IDrawable drawable in m_drawable)
+                drawable.LoadContent();
         }
 
         public void CenterOnPlayer()
         {
             Vector2 newPosition = new Vector2();
-            newPosition.X = m_worldPlayer.m_playerWorldPosition.X - WarlockGame.m_graphics.PreferredBackBufferWidth / 2;
-            newPosition.Y = m_worldPlayer.m_playerWorldPosition.Y - WarlockGame.m_graphics.PreferredBackBufferHeight / 2;
+            newPosition.X = m_worldPlayer.PlayerWorldPosition.X - WarlockGame.Graphics.PreferredBackBufferWidth / 2;
+            newPosition.Y = m_worldPlayer.PlayerWorldPosition.Y - WarlockGame.Graphics.PreferredBackBufferHeight / 2;
 
             m_worldoverlay.CenterOn(newPosition);
+        }
+
+        public void CenterOn(Vector2 newCenter)
+        {
+            m_worldPosition = newCenter;
         }
 
         public void MovePlayer(Vector2 toPosition)
@@ -135,7 +138,7 @@ namespace Warlock
             m_worldPlayer.MoveTo(toPosition);
         }
 
-        public void MarkDestination(IWorldEvent worldEvent)
+        public void MarkDestination(WorldObjectBase worldEvent)
         {
             m_worldEventDestination = worldEvent;
         }

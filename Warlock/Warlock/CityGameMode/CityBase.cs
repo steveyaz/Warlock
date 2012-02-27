@@ -14,16 +14,21 @@ namespace Warlock
         private Rectangle rect;
         public CityBase()
         {
-            rect = new Rectangle(0, 0, WarlockGame.m_graphics.PreferredBackBufferWidth, WarlockGame.m_graphics.PreferredBackBufferHeight);
+            rect = new Rectangle(0, 0, WarlockGame.Graphics.PreferredBackBufferWidth, WarlockGame.Graphics.PreferredBackBufferHeight);
         }
 
         public void Draw()
         {
             // Main Draw for every city
-            WarlockGame.m_Instance.EnsureTexture(CityBG);
-            WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[CityBG], rect, Color.White);
-            WarlockGame.m_spriteBatch.End();
+            
+            WarlockGame.Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            WarlockGame.Batch.Draw(WarlockGame.TextureDictionary[CityBG], rect, Color.White);
+            WarlockGame.Batch.End();
+        }
+
+        public void LoadContent()
+        {
+            WarlockGame.Instance.EnsureTexture(CityBG);
         }
 
         public void InteractLocation(TouchLocation touchLocation)

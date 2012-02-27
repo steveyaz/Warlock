@@ -5,63 +5,44 @@ using System.Text;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using WarlockDataTypes;
 
 namespace Warlock
 {
-    class WorldOverlay : IDrawable, IInteractable
+    public class WorldOverlay : IDrawable, IInteractable
     {
         private const int m_sizeX = 2400;
         private const int m_sizeY = 2400;
         private const int m_tilesize = 600;
 
-        private Vector2 m_pressLocation;
+        private List<IDrawable> m_drawable;
 
-        private string[,] m_maptiles;
+        private Vector2 m_pressLocation;
 
         public WorldOverlay()
         {
-            m_maptiles = new string[4,4];
-            m_maptiles[0,0] = "worldmap-0-0";
-            m_maptiles[0,1] = "worldmap-0-1";
-            m_maptiles[0,2] = "worldmap-0-2";
-            m_maptiles[0,3] = "worldmap-0-3";
-            m_maptiles[1,0] = "worldmap-1-0";
-            m_maptiles[1,1] = "worldmap-1-1";
-            m_maptiles[1,2] = "worldmap-1-2";
-            m_maptiles[1,3] = "worldmap-1-3";
-            m_maptiles[2,0] = "worldmap-2-0";
-            m_maptiles[2,1] = "worldmap-2-1";
-            m_maptiles[2,2] = "worldmap-2-2";
-            m_maptiles[2,3] = "worldmap-2-3";
-            m_maptiles[3,0] = "worldmap-3-0";
-            m_maptiles[3,1] = "worldmap-3-1";
-            m_maptiles[3,2] = "worldmap-3-2";
-            m_maptiles[3,3] = "worldmap-3-3";
+            m_drawable = new List<IDrawable>();
         }
 
         public void Draw()
         {
-            WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            foreach (IDrawable drawable in m_drawable)
+                drawable.Draw();
+        }
 
-            Vector2 tilevector = new Vector2(-(WorldGameMode.m_Instance.WorldPosition.X % m_tilesize), -(WorldGameMode.m_Instance.WorldPosition.Y % m_tilesize));
-            int x = 0;
-            int y = 0;
+        public void LoadContent()
+        {
+            WorldMapTileData[] worldMapTiles = WarlockGame.Instance.Content.Load<WorldMapTileData[]>(@"worldmap");
 
-            while (tilevector.X < WarlockGame.m_graphics.PreferredBackBufferWidth)
+            // Load objects from XML
+            foreach (WorldMapTileData tileData in worldMapTiles)
             {
-                while (tilevector.Y < WarlockGame.m_graphics.PreferredBackBufferHeight)
-                {
-                    WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[m_maptiles[((int)WorldGameMode.m_Instance.WorldPosition.X / m_tilesize) + x, ((int)WorldGameMode.m_Instance.WorldPosition.Y / m_tilesize) + y]], tilevector, Color.White);
-                    y++;
-                    tilevector.Y += m_tilesize;
-                }
-                x++;
-                tilevector.X += m_tilesize;
-                y = 0;
-                tilevector.Y = -(WorldGameMode.m_Instance.WorldPosition.Y % m_tilesize);
+                WorldObjectBase worldObjectBase = new WorldObjectBase(tileData.TileAssetName, null, tileData.TileXCoord, tileData.TileYCoord);
+                m_drawable.Add(worldObjectBase);
             }
-            
-            WarlockGame.m_spriteBatch.End();
+
+            foreach (IDrawable drawable in m_drawable)
+                drawable.LoadContent();
         }
 
         public void InteractGesture(GestureSample gesture)
@@ -94,14 +75,14 @@ namespace Warlock
         {
             if (position.X < 0)
                 position.X = 0;
-            else if (position.X > m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth)
-                position.X = m_sizeX - WarlockGame.m_graphics.PreferredBackBufferWidth;
+            else if (position.X > m_sizeX - WarlockGame.Graphics.PreferredBackBufferWidth)
+                position.X = m_sizeX - WarlockGame.Graphics.PreferredBackBufferWidth;
 
             if (position.Y < 0)
                 position.Y = 0;
-            else if (position.Y > m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight)
-                position.Y = m_sizeY - WarlockGame.m_graphics.PreferredBackBufferHeight;
-            WorldGameMode.m_Instance.WorldPosition = position;
+            else if (position.Y > m_sizeY - WarlockGame.Graphics.PreferredBackBufferHeight)
+                position.Y = m_sizeY - WarlockGame.Graphics.PreferredBackBufferHeight;
+            WorldGameMode.m_Instance.CenterOn(position);
         }
     }
 }

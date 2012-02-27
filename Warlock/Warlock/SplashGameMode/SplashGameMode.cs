@@ -31,7 +31,7 @@ namespace Warlock
 
         public void Draw()
         {
-            WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Red);
+            WarlockGame.Graphics.GraphicsDevice.Clear(Color.Red);
 
             foreach (IDrawable drawable in m_drawable)
                 drawable.Draw();
@@ -39,11 +39,17 @@ namespace Warlock
             return;
         }
 
+        public void LoadContent()
+        {
+            foreach (IDrawable drawable in m_drawable)
+                drawable.LoadContent();
+        }
+
         public void Update()
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                WarlockGame.m_Instance.Exit();
+                WarlockGame.Instance.Exit();
 
             if (TouchPanel.IsGestureAvailable)
             {
@@ -51,11 +57,6 @@ namespace Warlock
                 foreach (IInteractable interactable in m_interactable)
                     interactable.InteractGesture(gesture);
             }
-        }
-
-        public void LoadContent()
-        {
-
         }
     }
 }

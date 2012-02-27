@@ -17,14 +17,53 @@ namespace Warlock
     /// </summary>
     public class WarlockGame : Microsoft.Xna.Framework.Game
     {
-        public static WarlockGame m_Instance;
-        public static SpriteBatch m_spriteBatch;
-        public static Dictionary<string, Texture2D> m_textures;
-        public static SpriteFont m_spriteFont;
-        public static GraphicsDeviceManager m_graphics;
+        private static WarlockGame m_warlockGame;
+        public static WarlockGame Instance
+        {
+            get
+            {
+                return m_warlockGame;
+            }
+        }
 
-        public Dictionary<GameModeIndex, IGameMode> m_GameModes;
-        public GameModeIndex m_CurrentGameMode;
+        private static SpriteBatch m_batch;
+        public static SpriteBatch Batch
+        {
+            get
+            {
+                return m_batch;
+            }
+        }
+
+        private static Dictionary<string, Texture2D> m_textureDictionary;
+        public static Dictionary<string, Texture2D> TextureDictionary
+        {
+            get
+            {
+                return m_textureDictionary;
+            }
+        }
+
+        private static Dictionary<string, SpriteFont> m_fontDictionary;
+        public static Dictionary<string, SpriteFont> FontDictionary
+        {
+            get
+            {
+                return m_fontDictionary;
+            }
+        }
+
+        private static GraphicsDeviceManager m_graphics;
+        public static GraphicsDeviceManager Graphics
+        {
+            get
+            {
+                return m_graphics;
+            }
+        }
+
+        private IGameMode m_currentGameMode;
+        private WorldGameMode m_worldGameMode;
 
         public WarlockGame()
         {
@@ -46,24 +85,12 @@ namespace Warlock
         /// </summary>
         protected override void Initialize()
         {
-            m_Instance = this; 
-            m_textures = new Dictionary<string, Texture2D>();
+            m_warlockGame = this;
+            m_textureDictionary = new Dictionary<string, Texture2D>();
+            m_fontDictionary = new Dictionary<string, SpriteFont>();
 
             // initialize game to splash screen
-            m_CurrentGameMode = GameModeIndex.Splash;
-            m_GameModes = new Dictionary<GameModeIndex, IGameMode>();
-
-            // initialize the different modes
-            m_GameModes.Add(GameModeIndex.Splash, new SplashGameMode());
-            m_GameModes[GameModeIndex.Splash].Initialize(); 
-
-            m_GameModes.Add(GameModeIndex.World, new WorldGameMode());
-            m_GameModes[GameModeIndex.World].Initialize();
-
-            m_GameModes.Add(GameModeIndex.Battle, new BattleGameMode());
-            m_GameModes[GameModeIndex.Battle].Initialize();
-
-            m_GameModes.Add(GameModeIndex.City, new CityGameMode());
+            ChangeGameMode(new SplashGameMode());
 
             base.Initialize();
         }
@@ -75,13 +102,7 @@ namespace Warlock
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            m_spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // Give game modes a chance to load content
-            foreach (IGameMode gameMode in m_GameModes.Values)
-                gameMode.LoadContent();
-            
-            m_spriteFont = this.Content.Load<SpriteFont>("Warlock");
+            m_batch = new SpriteBatch(GraphicsDevice);
         }
 
         /// <summary>
@@ -100,7 +121,7 @@ namespace Warlock
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            m_GameModes[m_CurrentGameMode].Update();
+            m_currentGameMode.Update();
 
             base.Update(gameTime);
         } 
@@ -111,20 +132,41 @@ namespace Warlock
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            m_GameModes[m_CurrentGameMode].Draw();
+            m_currentGameMode.Draw();
 
             base.Draw(gameTime);
         }
 
-        public void ChangeGameMode(GameModeIndex gamemode)
-        {
-            m_CurrentGameMode = gamemode;
-        }
-
         public void EnsureTexture(string assetName)
         {
-            if (!m_textures.ContainsKey(assetName))
-                m_textures.Add(assetName, WarlockGame.m_Instance.Content.Load<Texture2D>(assetName));
+            if (!TextureDictionary.ContainsKey(assetName))
+                TextureDictionary.Add(assetName, Content.Load<Texture2D>(assetName));
+        }
+
+        public void EnsureFont(string assetName)
+        {
+            if (!FontDictionary.ContainsKey(assetName))
+                FontDictionary.Add(assetName, Content.Load<SpriteFont>(assetName));
+        }
+
+        public void StartNewGame()
+        {
+            m_worldGameMode = new WorldGameMode();
+            m_worldGameMode.Initialize();
+            m_worldGameMode.LoadContent();
+            m_currentGameMode = m_worldGameMode;
+        }
+
+        public void ChangeGameMode(IGameMode gameMode)
+        {
+            m_currentGameMode = gameMode;
+            m_currentGameMode.Initialize();
+            m_currentGameMode.LoadContent();
+        }
+
+        public void EnterWorldGameMode()
+        {
+            m_currentGameMode = m_worldGameMode;
         }
     }
 }

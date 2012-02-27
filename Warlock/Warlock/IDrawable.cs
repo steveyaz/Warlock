@@ -8,5 +8,7 @@ namespace Warlock
     public interface IDrawable
     {
         void Draw();
+
+        void LoadContent();
     }
 }

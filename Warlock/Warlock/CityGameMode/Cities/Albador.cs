@@ -12,8 +12,6 @@ namespace Warlock
             base.CityBG = "albador";
         }
 
-
-
         // Any interesting things that Albador should do that other cities don't have should go here.
         
     }

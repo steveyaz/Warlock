@@ -14,22 +14,22 @@ namespace Warlock
 
         public ExitCityButton(int x, int y)
         {
-            WarlockGame.m_Instance.EnsureTexture("leavecity");
-            ExitButton = new Rectangle(x, y, WarlockGame.m_textures["leavecity"].Width, WarlockGame.m_textures["leavecity"].Height);
+            WarlockGame.Instance.EnsureTexture("leavecity");
+            ExitButton = new Rectangle(x, y, WarlockGame.TextureDictionary["leavecity"].Width, WarlockGame.TextureDictionary["leavecity"].Height);
         }
 
         public void Draw()
         {
-            WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures["leavecity"], ExitButton, Color.White);
-            WarlockGame.m_spriteBatch.End();
+            WarlockGame.Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            WarlockGame.Batch.Draw(WarlockGame.TextureDictionary["leavecity"], ExitButton, Color.White);
+            WarlockGame.Batch.End();
         }
 
         public void InteractGesture(GestureSample gesture)
         {
             if (gesture.GestureType == GestureType.Tap
-                && gesture.Position.X < ExitButton.X + WarlockGame.m_textures["leavecity"].Width && gesture.Position.X > ExitButton.X
-                && gesture.Position.Y < ExitButton.Y + WarlockGame.m_textures["leavecity"].Height && gesture.Position.Y > ExitButton.Y)
+                && gesture.Position.X < ExitButton.X + WarlockGame.TextureDictionary["leavecity"].Width && gesture.Position.X > ExitButton.X
+                && gesture.Position.Y < ExitButton.Y + WarlockGame.TextureDictionary["leavecity"].Height && gesture.Position.Y > ExitButton.Y)
             {
                 Execute();
             }
@@ -42,7 +42,12 @@ namespace Warlock
 
         public void Execute()
         {
-            WarlockGame.m_Instance.ChangeGameMode(GameModeIndex.World);
+            WarlockGame.Instance.EnterWorldGameMode();
+        }
+
+        public void LoadContent()
+        {
+            WarlockGame.Instance.EnsureFont("Warlock");
         }
     }
 }
