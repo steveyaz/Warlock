@@ -11,9 +11,8 @@ namespace Warlock
 {
     public class WorldOverlay : IDrawable, IInteractable
     {
-        private const int m_sizeX = 2400;
-        private const int m_sizeY = 2400;
-        private const int m_tilesize = 600;
+        private int m_sizeX;
+        private int m_sizeY;
 
         private List<IDrawable> m_drawable;
 
@@ -32,9 +31,12 @@ namespace Warlock
 
         public void LoadContent()
         {
-            WorldMapTileData[] worldMapTiles = WarlockGame.Instance.Content.Load<WorldMapTileData[]>(@"worldmap");
-
             // Load objects from XML
+            WorldMapData worldMapData = WarlockGame.Instance.Content.Load<WorldMapData>(@"worldmap");
+            m_sizeX = worldMapData.Width;
+            m_sizeY = worldMapData.Height;
+
+            WorldMapTileData[] worldMapTiles = WarlockGame.Instance.Content.Load<WorldMapTileData[]>(@"worldmaptiles");
             foreach (WorldMapTileData tileData in worldMapTiles)
             {
                 WorldObjectBase worldObjectBase = new WorldObjectBase(tileData.TileAssetName, null, tileData.TileXCoord, tileData.TileYCoord);

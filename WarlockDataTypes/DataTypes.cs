@@ -27,6 +27,12 @@ namespace WarlockDataTypes
         public int WorldMapYCoord;
     }
 
+    public class WorldMapData
+    {
+        public int Height;
+        public int Width;
+    }
+
     public class WorldMapTileData
     {
         public string TileAssetName;
