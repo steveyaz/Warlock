@@ -54,6 +54,7 @@ namespace Warlock
         public void PlayerEnter()
         {
             //Set World player's current location.
+            WarlockGame.m_Instance.m_GameModes[GameModeIndex.City].Initialize();
             WarlockGame.m_Instance.ChangeGameMode(GameModeIndex.City);
         }
     }

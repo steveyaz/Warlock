@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Warlock
 {
-    public class CityModeBase : IDrawable, IInteractable
+    public class CityBase : IDrawable, IInteractable
     {
-        public string CityStr { get; set; }
+        public string CityBG { get; set; }
         private Rectangle rect;
-        public CityModeBase()
+        public CityBase()
         {
             rect = new Rectangle(0, 0, WarlockGame.m_graphics.PreferredBackBufferWidth, WarlockGame.m_graphics.PreferredBackBufferHeight);
         }
@@ -20,11 +20,9 @@ namespace Warlock
         public void Draw()
         {
             // Main Draw for every city
+            WarlockGame.m_Instance.EnsureTexture(CityBG);
             WarlockGame.m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-
-            //Hook into xml to draw.
-            WarlockGame.m_Instance.EnsureTexture(CityStr);
-            WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[CityStr], rect, Color.White);
+            WarlockGame.m_spriteBatch.Draw(WarlockGame.m_textures[CityBG], rect, Color.White);
             WarlockGame.m_spriteBatch.End();
         }
 
@@ -36,24 +34,6 @@ namespace Warlock
         public void InteractGesture(GestureSample gestureSample)
         {
 
-        }
-
-        public void InitCityString(CityEnum city)
-        {
-            switch (city)
-            {
-                case CityEnum.Albador:
-                    CityStr = "albador";
-                    break;
-                case CityEnum.Hibador:
-                    CityStr = "hibador";
-                    break;
-                case CityEnum.Midador:
-                    CityStr = "midador";
-                    break;
-                default:
-                    throw new Exception("Could not initialize city name.");
-            }
         }
     }
 }

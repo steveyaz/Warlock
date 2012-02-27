@@ -11,11 +11,12 @@ namespace Warlock
     class CityGameMode : IGameMode
     {
         public static CityGameMode m_Instance;
+        private ExitCityButton m_exitButton;
 
         private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
 
-        CityModeBase CurrentCity;
+        CityBase CurrentCity;
 
         private void InitCity(CityEnum city)
         {
@@ -41,24 +42,28 @@ namespace Warlock
             m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
 
-            TouchPanel.EnabledGestures = GestureType.Tap;
-        }
-
-        public void InitializeDraw()
-        {
-            // Init drawable for particular city entered.
-            // Find where the player is.
             WorldGameMode wgm = (WorldGameMode)WarlockGame.m_Instance.m_GameModes[GameModeIndex.World];
             WorldCity CurrentCity = (WorldCity)wgm.m_worldEventDestination;
+            
             InitCity(CurrentCity.City);
+            m_drawable.Add(this.CurrentCity);
+            m_interactable.Add(this.CurrentCity);
+
+            m_exitButton = new ExitCityButton(5, 5);
+            m_drawable.Add(m_exitButton);
+            m_interactable.Add(m_exitButton);
+
+            TouchPanel.EnabledGestures = GestureType.Tap;
         }
 
         public void Draw()
         {
             // Build draw list based on player location.
             WarlockGame.m_graphics.GraphicsDevice.Clear(Color.Red);
-            InitializeDraw();
-            CurrentCity.Draw();
+
+            foreach (IDrawable idraw in m_drawable)
+                idraw.Draw();
+
             return;
         }
 

@@ -64,7 +64,6 @@ namespace Warlock
             m_GameModes[GameModeIndex.Battle].Initialize();
 
             m_GameModes.Add(GameModeIndex.City, new CityGameMode());
-            m_GameModes[GameModeIndex.City].Initialize();
 
             base.Initialize();
         }
