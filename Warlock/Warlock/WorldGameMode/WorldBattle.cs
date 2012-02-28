@@ -1,20 +1,25 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace Warlock
+namespace Warlock.WorldGameModeNS
 {
     public class WorldBattle : WorldObjectBase
     {
-        public WorldBattle(string assetName, string battleID, int x, int y) : base(assetName, battleID, x, y) { }
+        public WorldBattle()
+        {
+            ContextMenuItems = new Dictionary<string, ScreenObjectTapDelegate>();
+            ContextMenuItems.Add("Enter Battle", EnterBattle);
+            TapDelegate = ExecuteTap;
+        }
 
-        public override void PlayerEnter()
+        public void EnterBattle()
         {
             WarlockGame.Instance.ChangeGameMode(new BattleGameMode());
+        }
+
+        public void ExecuteTap()
+        {
+            WorldGameMode.m_Instance.MarkDestination(this);
+            WorldGameMode.m_Instance.MovePlayer(WorldPosition);
         }
     }
 }

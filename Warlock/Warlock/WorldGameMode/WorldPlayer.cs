@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Warlock
+namespace Warlock.WorldGameModeNS
 {
-    public class WorldPlayer : IDrawable, IInteractable
+    public class WorldPlayer : ImageScreenObject
     {
         private Vector2 m_playerWorldPosition;
         public Vector2 PlayerWorldPosition
@@ -19,42 +14,27 @@ namespace Warlock
             }
         }
 
+        private bool m_moving;
+        public bool Moving
+        {
+            get
+            {
+                return m_moving;
+            }
+        }
+
         private Vector2 m_toPosition;
         private Vector2 m_lastDelta;
         private Vector2 m_velocity;
-        private bool m_moving;
 
         public WorldPlayer(int x, int y)
         {
             m_playerWorldPosition = new Vector2(x, y);
             m_moving = false;
+            AssetName = "graywizard";
         }
 
-        public void Draw()
-        {
-            Vector2 screenVector = WorldGameMode.WorldToScreen(PlayerWorldPosition);
-
-            if (screenVector.X + WarlockGame.TextureDictionary["graywizard"].Width > 0
-                && screenVector.X < WarlockGame.Graphics.PreferredBackBufferWidth
-                && screenVector.Y + WarlockGame.TextureDictionary["graywizard"].Height > 0
-                && screenVector.Y < WarlockGame.Graphics.PreferredBackBufferHeight)
-            {
-                WarlockGame.Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-                WarlockGame.Batch.Draw(WarlockGame.TextureDictionary["graywizard"], screenVector, Color.White);
-                WarlockGame.Batch.End();
-            }
-        }
-
-        public void InteractGesture(GestureSample gesture)
-        {
-        }
-
-        public void InteractLocation(TouchLocation touchLocation)
-        {
-            // Do nothing
-        }
-
-        public void Update()
+        public override void Update()
         {
             if (m_moving)
             {
@@ -70,6 +50,7 @@ namespace Warlock
                     m_lastDelta = m_toPosition - PlayerWorldPosition;
                 }
             }
+            ScreenPosition = WorldGameMode.WorldToScreen(m_playerWorldPosition);
         }
 
         public void MoveTo(Vector2 toPosition)
@@ -82,9 +63,12 @@ namespace Warlock
             m_moving = true;
         }
 
-        public void LoadContent()
+        public void ZoomToDestination()
         {
-            WarlockGame.Instance.EnsureTexture("graywizard");
+            if (m_moving)
+            {
+                m_playerWorldPosition = m_toPosition;
+            }
         }
     }
 }

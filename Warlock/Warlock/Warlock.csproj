@@ -76,12 +76,14 @@
     <Compile Include="IGameMode.cs" />
     <Compile Include="IInteractable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SplashGameMode\ExitSplashButton.cs" />
-    <Compile Include="SplashGameMode\NewGameSplashButton.cs" />
+    <Compile Include="ScreenObjectBase.cs" />
     <Compile Include="SplashGameMode\SplashGameMode.cs" />
-    <Compile Include="WorldGameMode\CenterButton.cs" />
+    <Compile Include="TextScreenObject.cs" />
+    <Compile Include="ImageScreenObject.cs" />
     <Compile Include="WorldGameMode\WorldCity.cs" />
     <Compile Include="WorldGameMode\WorldBattle.cs" />
+    <Compile Include="WorldGameMode\WorldContextMenu.cs" />
+    <Compile Include="WorldGameMode\WorldHUD.cs" />
     <Compile Include="WorldGameMode\WorldObjectBase.cs" />
     <Compile Include="WorldGameMode\WorldGameMode.cs" />
     <Compile Include="WorldGameMode\WorldOverlay.cs" />

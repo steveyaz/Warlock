@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input.Touch;
+using System.Collections.Generic;
 using WarlockDataTypes;
 
-namespace Warlock
+namespace Warlock.WorldGameModeNS
 {
     public class WorldOverlay : IDrawable, IInteractable
     {
@@ -29,6 +25,12 @@ namespace Warlock
                 drawable.Draw();
         }
 
+        public void Update()
+        {
+            foreach (IDrawable drawable in m_drawable)
+                drawable.Update();
+        }
+
         public void LoadContent()
         {
             // Load objects from XML
@@ -39,7 +41,12 @@ namespace Warlock
             WorldMapTileData[] worldMapTiles = WarlockGame.Instance.Content.Load<WorldMapTileData[]>(@"worldmaptiles");
             foreach (WorldMapTileData tileData in worldMapTiles)
             {
-                WorldObjectBase worldObjectBase = new WorldObjectBase(tileData.TileAssetName, null, tileData.TileXCoord, tileData.TileYCoord);
+                WorldObjectBase worldObjectBase = new WorldObjectBase()
+                {
+                    AssetName = tileData.TileAssetName,
+                    WorldPosition = new Vector2(tileData.TileXCoord, tileData.TileYCoord),
+                };
+
                 m_drawable.Add(worldObjectBase);
             }
 
@@ -47,7 +54,7 @@ namespace Warlock
                 drawable.LoadContent();
         }
 
-        public void InteractGesture(GestureSample gesture)
+        public bool InteractGesture(GestureSample gesture)
         {
             switch (gesture.GestureType)
             {
@@ -58,6 +65,7 @@ namespace Warlock
                 default:
                     break;
             }
+            return false;
         }
 
         public void InteractLocation(TouchLocation touchLocation)

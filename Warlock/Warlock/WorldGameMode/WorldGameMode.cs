@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
+using System.Collections.Generic;
 using System.Xml;
 using WarlockDataTypes;
 
-namespace Warlock
+namespace Warlock.WorldGameModeNS
 {
     public class WorldGameMode : IGameMode
     {
@@ -27,9 +23,10 @@ namespace Warlock
         private List<IDrawable> m_drawable;
         private List<IInteractable> m_interactable;
 
+        private WorldHUD m_worldHUD;
         private WorldOverlay m_worldoverlay;
         private WorldPlayer m_worldPlayer;
-        private WorldObjectBase m_worldEventDestination;
+        private WorldObjectBase m_worldObjectDestination;
 
         public void Initialize()
         {
@@ -39,18 +36,51 @@ namespace Warlock
 
             // World map
             m_worldoverlay = new WorldOverlay();
-            m_drawable.Add(m_worldoverlay);
-            m_interactable.Add(m_worldoverlay);
-
+            
             // Player on the map
             m_worldPlayer = new WorldPlayer(200, 200);
-            m_drawable.Add(m_worldPlayer);
-            m_interactable.Add(m_worldPlayer);
+            
+            // HUD
+            m_worldHUD = new WorldHUD();
 
-            // Center-on-player button
-            CenterButton centerButton = new CenterButton();
-            m_drawable.Add(centerButton);
-            m_interactable.Add(centerButton);
+            // World objects from XML
+            WorldMapObjectData[] worldMapObjects = WarlockGame.Instance.Content.Load<WorldMapObjectData[]>(@"worldmapobjects");
+            List<WorldObjectBase> worldObjects = new List<WorldObjectBase>();
+
+            foreach (WorldMapObjectData objectData in worldMapObjects)
+            {
+                if (objectData.ObjectType == WorldMapObjectType.City)
+                {
+                    worldObjects.Add(new WorldCity()
+                    {
+                        AssetName = objectData.WorldMapAssetName,
+                        ObjectID = objectData.ObjectID,
+                        WorldPosition = new Vector2(objectData.WorldMapXCoord, objectData.WorldMapYCoord),
+                    });
+                }
+                else if (objectData.ObjectType == WorldMapObjectType.Battle)
+                {
+                    worldObjects.Add(new WorldBattle()
+                    {
+                        AssetName = objectData.WorldMapAssetName,
+                        ObjectID = objectData.ObjectID,
+                        WorldPosition = new Vector2(objectData.WorldMapXCoord, objectData.WorldMapYCoord),
+                    });
+                }
+            }
+
+            // these should always be added in opposite order so that objects drawn on top get interaction priority
+            m_drawable.Add(m_worldoverlay);
+            foreach (WorldObjectBase worldObjectBase in worldObjects)
+                m_drawable.Add(worldObjectBase);
+            m_drawable.Add(m_worldPlayer);
+            m_drawable.Add(m_worldHUD);
+
+            m_interactable.Add(m_worldHUD);
+            m_interactable.Add(m_worldPlayer);
+            foreach (WorldObjectBase worldObjectBase in worldObjects)
+                m_interactable.Add(worldObjectBase);
+            m_interactable.Add(m_worldoverlay);
 
             CenterOnPlayer();
 
@@ -64,57 +94,39 @@ namespace Warlock
 
             foreach (IDrawable drawable in m_drawable)
                 drawable.Draw();
-
-            return;
         }
 
         public void Update()
         {
             // Go back to splash
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                WarlockGame.Instance.ChangeGameMode(new SplashGameMode());
+                WarlockGame.Instance.ChangeGameMode(new SplashGameModeNS.SplashGameMode());
 
             if (TouchPanel.IsGestureAvailable)
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
-                foreach (IInteractable interactable in m_interactable)
-                    interactable.InteractGesture(gesture);
+                // World Player gets priority if moving
+                if (m_worldPlayer.Moving)
+                    m_worldPlayer.ZoomToDestination();
+                else
+                    foreach (IInteractable interactable in m_interactable)
+                        if (interactable.InteractGesture(gesture))
+                            break;
             }
             else
             {
                 TouchCollection touchCollection = TouchPanel.GetState();
                 // No multitouch here
-                if (touchCollection.Count == 1)
-                    foreach (IInteractable interactable in m_interactable)
-                        interactable.InteractLocation(touchCollection[0]);
+                if (touchCollection.Count == 1 && !m_worldPlayer.Moving)
+                    m_worldoverlay.InteractLocation(touchCollection[0]);
             }
 
-            m_worldPlayer.Update();
+            foreach (IDrawable drawable in m_drawable)
+                drawable.Update();
         }
 
         public void LoadContent()
         {
-            WorldMapObjectData[] worldMapObjects = WarlockGame.Instance.Content.Load<WorldMapObjectData[]>(@"worldmapobjects");
-
-            // Load objects from XML
-            foreach (WorldMapObjectData objectData in worldMapObjects)
-            {
-                WorldObjectBase worldObjectBase;
-
-                if (objectData.ObjectType == WorldMapObjectType.City)
-                {
-                    worldObjectBase = new WorldCity(objectData.WorldMapAssetName, objectData.ObjectID, objectData.WorldMapXCoord, objectData.WorldMapYCoord);
-                    m_drawable.Add(worldObjectBase);
-                    m_interactable.Add(worldObjectBase);
-                }
-                else if (objectData.ObjectType == WorldMapObjectType.Battle)
-                {
-                    worldObjectBase = new WorldBattle(objectData.WorldMapAssetName, objectData.ObjectID, objectData.WorldMapXCoord, objectData.WorldMapYCoord);
-                    m_drawable.Add(worldObjectBase);
-                    m_interactable.Add(worldObjectBase);
-                }
-            }
-
             foreach (IDrawable drawable in m_drawable)
                 drawable.LoadContent();
         }
@@ -135,17 +147,18 @@ namespace Warlock
 
         public void MovePlayer(Vector2 toPosition)
         {
+            m_worldHUD.HideContextMenu();
             m_worldPlayer.MoveTo(toPosition);
         }
 
         public void MarkDestination(WorldObjectBase worldEvent)
         {
-            m_worldEventDestination = worldEvent;
+            m_worldObjectDestination = worldEvent;
         }
 
         public void ArrivedAtDestination()
         {
-            m_worldEventDestination.PlayerEnter();
+            m_worldHUD.ShowContextMenu(m_worldObjectDestination.ContextMenuItems);
         }
 
         public static Vector2 WorldToScreen(Vector2 worldVector)

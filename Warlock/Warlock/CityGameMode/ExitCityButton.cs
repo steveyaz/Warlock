@@ -25,14 +25,18 @@ namespace Warlock
             WarlockGame.Batch.End();
         }
 
-        public void InteractGesture(GestureSample gesture)
+        public virtual void Update() { }
+
+        public bool InteractGesture(GestureSample gesture)
         {
             if (gesture.GestureType == GestureType.Tap
                 && gesture.Position.X < ExitButton.X + WarlockGame.TextureDictionary["leavecity"].Width && gesture.Position.X > ExitButton.X
                 && gesture.Position.Y < ExitButton.Y + WarlockGame.TextureDictionary["leavecity"].Height && gesture.Position.Y > ExitButton.Y)
             {
                 Execute();
+                return true;
             }
+            return false;
         }
 
         public void InteractLocation(TouchLocation location)

@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 
-namespace Warlock
+namespace Warlock.SplashGameModeNS
 {
     class SplashGameMode : IGameMode
     {
@@ -17,15 +17,31 @@ namespace Warlock
             m_drawable = new List<IDrawable>();
             m_interactable = new List<IInteractable>();
 
-            // Buttons
-            NewGameSplashButton newgame = new NewGameSplashButton();
-            m_drawable.Add(newgame);
-            m_interactable.Add(newgame);
-            
-            ExitSplashButton exit = new ExitSplashButton();
-            m_drawable.Add(exit);
-            m_interactable.Add(exit);
+            TextScreenObject newGameButton = new TextScreenObject()
+            {
+                Text = "New Game",
+                TextColor = Color.BlanchedAlmond,
+                AssetName = "Warlock",
+                ScreenPosition = new Vector2(WarlockGame.Graphics.GraphicsDevice.Viewport.Width / 2, WarlockGame.Graphics.GraphicsDevice.Viewport.Height / 2 - 30),
+                TapDelegate = WarlockGame.Instance.StartNewGame
+            };
 
+            TextScreenObject exitGameButton = new TextScreenObject()
+            {
+                Text = "Exit",
+                TextColor = Color.BlanchedAlmond,
+                AssetName = "Warlock",
+                ScreenPosition = new Vector2(WarlockGame.Graphics.GraphicsDevice.Viewport.Width / 2, WarlockGame.Graphics.GraphicsDevice.Viewport.Height / 2 + 30),
+                TapDelegate = WarlockGame.Instance.Exit
+            };
+
+            // these should always be added in opposite order so that objects drawn on top get interaction priority
+            m_drawable.Add(newGameButton);
+            m_drawable.Add(exitGameButton);
+            
+            m_interactable.Add(exitGameButton);
+            m_interactable.Add(newGameButton);
+            
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
 
@@ -55,8 +71,12 @@ namespace Warlock
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
                 foreach (IInteractable interactable in m_interactable)
-                    interactable.InteractGesture(gesture);
+                    if (interactable.InteractGesture(gesture))
+                        break;
             }
+
+            foreach (IDrawable drawable in m_drawable)
+                drawable.Update();
         }
     }
 }

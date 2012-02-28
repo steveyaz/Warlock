@@ -1,22 +1,27 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Warlock
+namespace Warlock.WorldGameModeNS
 {
     public class WorldCity : WorldObjectBase
     {
-        public WorldCity(string assetName, string cityID, int x, int y) : base(assetName, cityID, x, y) { }
+        public WorldCity()
+        {
+            ContextMenuItems = new Dictionary<string, ScreenObjectTapDelegate>();
+            ContextMenuItems.Add("Enter City", EnterCity);
+            TapDelegate = ExecuteTap;
+        }
 
-        public override void PlayerEnter()
+        public void EnterCity()
         {
             CityGameMode cityGameMode = new CityGameMode();
             cityGameMode.CityAssetName = base.ObjectID;
             WarlockGame.Instance.ChangeGameMode(cityGameMode);
+        }
+
+        public void ExecuteTap()
+        {
+            WorldGameMode.m_Instance.MarkDestination(this);
+            WorldGameMode.m_Instance.MovePlayer(WorldPosition);
         }
     }
 }

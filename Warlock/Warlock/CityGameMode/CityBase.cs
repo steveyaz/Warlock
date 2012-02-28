@@ -26,6 +26,8 @@ namespace Warlock
             WarlockGame.Batch.End();
         }
 
+        public virtual void Update() { }
+
         public void LoadContent()
         {
             WarlockGame.Instance.EnsureTexture(CityBG);
@@ -36,9 +38,9 @@ namespace Warlock
 
         }
 
-        public void InteractGesture(GestureSample gestureSample)
+        public bool InteractGesture(GestureSample gestureSample)
         {
-
+            return false;
         }
     }
 }
