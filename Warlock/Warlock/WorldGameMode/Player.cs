@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Warlock.WorldGameModeNS
 {
-    public class WorldPlayer : ImageScreenObject
+    public class Player : ImageScreenObject
     {
         private Vector2 m_playerWorldPosition;
         public Vector2 PlayerWorldPosition
@@ -27,7 +27,7 @@ namespace Warlock.WorldGameModeNS
         private Vector2 m_lastDelta;
         private Vector2 m_velocity;
 
-        public WorldPlayer(int x, int y)
+        public Player(int x, int y)
         {
             m_playerWorldPosition = new Vector2(x, y);
             m_moving = false;

@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock
 {
-    class TextScreenObject : ScreenObjectBase, IDrawable
+    class TextScreenObject : ScreenObjectBase
     {
         public string Text { get; set; }
         public Color TextColor { get; set; }
 
-        public void Draw()
+        public override void Draw()
         {
             if (ScreenPosition.X + Size.X > 0
                 && ScreenPosition.X < WarlockGame.Graphics.PreferredBackBufferWidth
@@ -21,9 +21,7 @@ namespace Warlock
             }
         }
 
-        public virtual void Update() { }
-
-        public void LoadContent()
+        public override void LoadContent()
         {
             WarlockGame.Instance.EnsureFont(AssetName);
             Size = WarlockGame.FontDictionary[AssetName].MeasureString(Text);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Warlock.WorldGameModeNS
 {
-    public class WorldContextMenu : IDrawable, IInteractable
+    public class ContextMenu : IDrawable, IInteractable
     {
         private const int MENU_BOTTOM_LEFT_CORNER_OFFSET_X = -200;
         private const int MENU_BOTTOM_LEFT_CORNER_OFFSET_Y = -20;
@@ -12,7 +12,7 @@ namespace Warlock.WorldGameModeNS
 
         private List<TextScreenObject> m_contextMenuItems;
 
-        public WorldContextMenu()
+        public ContextMenu()
         {
             m_contextMenuItems = new List<TextScreenObject>();
         }

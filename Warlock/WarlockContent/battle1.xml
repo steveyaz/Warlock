@@ -1,6 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
-  <Asset Type="System.Collections.Generic.List[string]">
+  <Asset Type="WarlockDataTypes.BattleObjectData[]">
+    <Item>
+      <ObjectType>Player</ObjectType>
+      <BattleObjectAssetName></BattleObjectAssetName>
+      <BattleXCoord>38</BattleXCoord>
+      <BattleYCoord>322</BattleYCoord>
+    </Item>
+    <Item>
+      <ObjectType>Enemy</ObjectType>
+      <BattleObjectAssetName>redwizard</BattleObjectAssetName>
+      <BattleXCoord>740</BattleXCoord>
+      <BattleYCoord>98</BattleYCoord>
+    </Item>
+    <Item>
+      <ObjectType>Enemy</ObjectType>
+      <BattleObjectAssetName>redwizard</BattleObjectAssetName>
+      <BattleXCoord>720</BattleXCoord>
+      <BattleYCoord>178</BattleYCoord>
+    </Item>
+    <Item>
+      <ObjectType>Enemy</ObjectType>
+      <BattleObjectAssetName>redwizard</BattleObjectAssetName>
+      <BattleXCoord>745</BattleXCoord>
+      <BattleYCoord>289</BattleYCoord>
+    </Item>
   </Asset>
-
 </XnaContent>

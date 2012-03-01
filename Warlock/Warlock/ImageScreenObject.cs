@@ -3,11 +3,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock
 {
-    public class ImageScreenObject : ScreenObjectBase, IDrawable
+    public class ImageScreenObject : ScreenObjectBase
     {
-        public void Draw()
+        public bool FDraw { get; set; }
+
+        public ImageScreenObject()
         {
-            if (ScreenPosition.X + Size.X > 0
+            FDraw = true;
+        }
+
+        public override void Draw()
+        {
+            if (FDraw
+                && ScreenPosition.X + Size.X > 0
                 && ScreenPosition.X < WarlockGame.Graphics.PreferredBackBufferWidth
                 && ScreenPosition.Y + Size.Y > 0
                 && ScreenPosition.Y < WarlockGame.Graphics.PreferredBackBufferHeight)
@@ -18,9 +26,7 @@ namespace Warlock
             }
         }
 
-        public virtual void Update() { }
-
-        public void LoadContent()
+        public override void LoadContent()
         {
             WarlockGame.Instance.EnsureTexture(AssetName);
             Size = new Vector2(WarlockGame.TextureDictionary[AssetName].Width, WarlockGame.TextureDictionary[AssetName].Height);

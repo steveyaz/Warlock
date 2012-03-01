@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Warlock.WorldGameModeNS
 {
-    class WorldHUD : IDrawable, IInteractable
+    class HUD : IDrawable, IInteractable
     {
         ImageScreenObject m_centerButton;
-        WorldContextMenu m_worldContextMenu;
+        ContextMenu m_contextMenu;
 
-        public WorldHUD()
+        public HUD()
         {
             // Center-on-player button
             m_centerButton = new ImageScreenObject()
@@ -20,28 +20,31 @@ namespace Warlock.WorldGameModeNS
             };
 
             // Context menus
-            m_worldContextMenu = new WorldContextMenu();
+            m_contextMenu = new ContextMenu();
         }
 
         public void Draw()
         {
             m_centerButton.Draw();
-            m_worldContextMenu.Draw();
+            m_contextMenu.Draw();
         }
 
-        public virtual void Update() { }
+        public void Update()
+        {
+            // Do nothing
+        }
 
         public void LoadContent()
         {
             m_centerButton.LoadContent();
-            m_worldContextMenu.LoadContent();
+            m_contextMenu.LoadContent();
         }
 
         public bool InteractGesture(GestureSample gesture)
         {
             bool ret = false;
             ret |= m_centerButton.InteractGesture(gesture);
-            ret |= m_worldContextMenu.InteractGesture(gesture);
+            ret |= m_contextMenu.InteractGesture(gesture);
             return ret;
         }
 
@@ -52,12 +55,12 @@ namespace Warlock.WorldGameModeNS
 
         public void ShowContextMenu(Dictionary<string, ScreenObjectTapDelegate> contextMenuItems)
         {
-            m_worldContextMenu.Show(contextMenuItems);
+            m_contextMenu.Show(contextMenuItems);
         }
 
         public void HideContextMenu()
         {
-            m_worldContextMenu.Hide();
+            m_contextMenu.Hide();
         }
     }
 }

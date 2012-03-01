@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Warlock.WorldGameModeNS
 {
-    public class WorldBattle : WorldObjectBase
+    public class Battle : WorldObjectBase
     {
-        public WorldBattle()
+        public Battle()
         {
             ContextMenuItems = new Dictionary<string, ScreenObjectTapDelegate>();
             ContextMenuItems.Add("Enter Battle", EnterBattle);
@@ -13,7 +13,7 @@ namespace Warlock.WorldGameModeNS
 
         public void EnterBattle()
         {
-            WarlockGame.Instance.ChangeGameMode(new BattleGameMode());
+            WarlockGame.Instance.ChangeGameMode(new BattleGameMode.BattleGameMode(ObjectID));
         }
 
         public void ExecuteTap()

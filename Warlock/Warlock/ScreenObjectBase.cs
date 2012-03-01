@@ -5,7 +5,7 @@ namespace Warlock
 {
     public delegate void ScreenObjectTapDelegate();
 
-    public class ScreenObjectBase : IInteractable
+    public class ScreenObjectBase : IDrawable, IInteractable
     {
         public string AssetName { get; set; }
         public Vector2 ScreenPosition { get; set; }
@@ -13,7 +13,13 @@ namespace Warlock
 
         protected Vector2 Size { get; set; }
 
-        public bool InteractGesture(GestureSample gesture)
+        public virtual void Draw() { }
+
+        public virtual void Update() { }
+
+        public virtual void LoadContent() { }
+
+        public virtual bool InteractGesture(GestureSample gesture)
         {
             if (TapDelegate != null
                 && gesture.GestureType == GestureType.Tap
@@ -26,9 +32,6 @@ namespace Warlock
             return false;
         }
 
-        public void InteractLocation(TouchLocation touchLocation)
-        {
-            // Do nothing
-        }
+        public virtual void InteractLocation(TouchLocation touchLocation) { }
     }
 }

@@ -47,6 +47,7 @@ namespace Warlock.SplashGameModeNS
 
         public void Draw()
         {
+            // TODO: clear to black once we have a splash background
             WarlockGame.Graphics.GraphicsDevice.Clear(Color.Red);
 
             foreach (IDrawable drawable in m_drawable)

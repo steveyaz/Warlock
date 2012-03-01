@@ -40,6 +40,20 @@ namespace WarlockDataTypes
         public int TileYCoord;
     }
 
+    public enum BattleObjectType
+    {
+        Player = 0,
+        Enemy = 1,
+    }
+
+    public class BattleObjectData
+    {
+        public BattleObjectType ObjectType;
+        public string BattleObjectAssetName;
+        public int BattleXCoord;
+        public int BattleYCoord;
+    }
+
     public class CityData
     {
         public string ObjectID;

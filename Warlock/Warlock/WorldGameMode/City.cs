@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Warlock.WorldGameModeNS
 {
-    public class WorldCity : WorldObjectBase
+    public class City : WorldObjectBase
     {
-        public WorldCity()
+        public City()
         {
             ContextMenuItems = new Dictionary<string, ScreenObjectTapDelegate>();
             ContextMenuItems.Add("Enter City", EnterCity);

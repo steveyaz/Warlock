@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Warlock.BattleGameMode
 {
-    public class Enemy : BattleObjectBase
+    public class ActionButton : ImageScreenObject
     {
-        public Enemy()
+        public ActionButton()
         {
             TapDelegate = ExecuteTap;
         }

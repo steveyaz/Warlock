@@ -5,7 +5,7 @@ using WarlockDataTypes;
 
 namespace Warlock.WorldGameModeNS
 {
-    public class WorldOverlay : IDrawable, IInteractable
+    public class Map : IDrawable, IInteractable
     {
         private int m_sizeX;
         private int m_sizeY;
@@ -14,7 +14,7 @@ namespace Warlock.WorldGameModeNS
 
         private Vector2 m_pressLocation;
 
-        public WorldOverlay()
+        public Map()
         {
             m_drawable = new List<IDrawable>();
         }
