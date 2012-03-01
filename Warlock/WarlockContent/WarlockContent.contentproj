@@ -194,13 +194,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="hex.png">
-      <Name>hex</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="redwizard.png">
       <Name>redwizard</Name>
       <Importer>TextureImporter</Importer>
