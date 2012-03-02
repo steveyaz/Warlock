@@ -13,15 +13,20 @@ namespace Warlock.BattleGameMode
     {
         public static BattleGameMode m_Instance;
 
-        private List<IDrawable> m_drawable;
-        private List<IInteractable> m_interactable;
+        public int BattleTime { get; set; }
+        public bool Paused { get; set; }
+        public bool ChooseTarget { get; set; }
+        public bool JustFinishedExecutingCast { get; set; }
+        public bool Victory { get; set; }
 
+        private const int m_framesPerBattleTimeUnit = 30;
+        private int m_frame;
+
+        private List<IDrawable> m_drawable;
         private string m_battleID;
         private HUD m_HUD;
         private Player m_player;
         private List<Enemy> m_enemies;
-
-        private ActionButton m_selectedAction;
 
         public BattleGameMode(string battleID)
         {
@@ -31,9 +36,14 @@ namespace Warlock.BattleGameMode
         public void Initialize()
         {
             m_Instance = this;
+            m_frame = 0;
+            BattleTime = 0;
+            Paused = true;
+            ChooseTarget = false;
+            JustFinishedExecutingCast = true;
+            Victory = false;
 
             m_drawable = new List<IDrawable>();
-            m_interactable = new List<IInteractable>();
 
             m_HUD = new HUD();
             
@@ -46,7 +56,6 @@ namespace Warlock.BattleGameMode
                 {
                     m_player = new Player()
                     {
-                        AssetName = "graywizard",
                         ScreenPosition = new Vector2(objectData.BattleXCoord, objectData.BattleYCoord)
                     };
                 }
@@ -66,11 +75,6 @@ namespace Warlock.BattleGameMode
             m_drawable.Add(m_player);
             m_drawable.Add(m_HUD);
 
-            m_interactable.Add(m_HUD);
-            m_interactable.Add(m_player);
-            foreach (Enemy enemy in m_enemies)
-                m_interactable.Add(enemy);
-
             // Enable only certain gestures
             TouchPanel.EnabledGestures = GestureType.Tap;
         }
@@ -86,6 +90,21 @@ namespace Warlock.BattleGameMode
 
         public void Update()
         {
+            if (!Paused)
+            {
+                m_frame++;
+                if (m_frame == m_framesPerBattleTimeUnit)
+                {
+                    m_frame = 0;
+                    // next battle time unit
+                    BattleTime++;
+                    // notify Enemies and Player of time unit increment
+                    foreach (Enemy enemy in m_enemies)
+                        enemy.BattleTimeUnitIncrement();
+                    m_player.BattleTimeUnitIncrement();
+                }
+            }
+
             // Go back to world view
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 WarlockGame.Instance.EnterWorldGameMode();
@@ -93,17 +112,29 @@ namespace Warlock.BattleGameMode
             if (TouchPanel.IsGestureAvailable)
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
-                foreach (IInteractable interactable in m_interactable)
-                    if (interactable.InteractGesture(gesture))
-                        break;
-            }
-            else
-            {
-                TouchCollection touchCollection = TouchPanel.GetState();
-                // No multitouch here
-                if (touchCollection.Count == 1)
-                    foreach (IInteractable interactable in m_interactable)
-                        interactable.InteractLocation(touchCollection[0]);
+
+                // exit on victory
+                if (Victory)
+                {
+                    WarlockGame.Instance.EnterWorldGameMode();
+                }
+                // pause battle mode so that user can make a new action
+                if (!Paused && gesture.GestureType == GestureType.Tap)
+                {
+                    Paused = true;
+                }
+                // unpause a pause made by user
+                else if (gesture.GestureType == GestureType.Tap && Paused && !ChooseTarget && !m_HUD.InteractGesture(gesture) && !JustFinishedExecutingCast)
+                {
+                    Paused = false;
+                }
+                // execute user action
+                else
+                {
+                    foreach (Enemy enemy in m_enemies)
+                        if (enemy.InteractGesture(gesture))
+                            break;
+                }
             }
 
             foreach (IDrawable drawable in m_drawable)
@@ -118,23 +149,31 @@ namespace Warlock.BattleGameMode
 
         public void ExecuteTap(ActionButton action)
         {
-            m_selectedAction = action;
+            Paused = false;
+            JustFinishedExecutingCast = false;
+            m_player.CastSpell(action.AssetName);
         }
 
         public void ExecuteTap(BattleObjectBase occupyingObject)
         {
-            if (m_selectedAction != null)
-            {
-                switch (m_selectedAction.AssetName)
-                {
-                    case "meteor":
-                        occupyingObject.FDraw = false;
-                        m_selectedAction = null;
-                        break;
-                    default:
-                        break;
-                }
-            }
+            if (ChooseTarget)
+                m_player.ExecuteSpell(occupyingObject);
+            ChooseTarget = false;
+            JustFinishedExecutingCast = true;
+        }
+
+        public void CastingFinished()
+        {
+            Paused = true;
+            ChooseTarget = true;
+        }
+
+        public void CheckVictoryConditions()
+        {
+            foreach (Enemy enemy in m_enemies)
+                if (enemy.FDraw)
+                    return;
+            Victory = true;
         }
     }
 }

@@ -63,6 +63,15 @@ namespace Warlock
             }
         }
 
+        private static GameTime m_currentGameTime;
+        public static GameTime CurrentGameTime
+        {
+            get
+            {
+                return m_currentGameTime;
+            }
+        }
+
         private IGameMode m_currentGameMode;
         private WorldGameMode m_worldGameMode;
 
@@ -122,6 +131,7 @@ namespace Warlock
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            m_currentGameTime = gameTime;
             m_currentGameMode.Update();
 
             base.Update(gameTime);

@@ -71,6 +71,7 @@
     <Compile Include="BattleGameMode\HUD.cs" />
     <Compile Include="BattleGameMode\Player.cs" />
     <Compile Include="BattleGameMode\Enemy.cs" />
+    <Compile Include="BattleGameMode\SpellBase.cs" />
     <Compile Include="BattleGameMode\SpellEffect.cs" />
     <Compile Include="CityGameMode\Cities\Albador.cs" />
     <Compile Include="CityGameMode\Cities\Hibador.cs" />
