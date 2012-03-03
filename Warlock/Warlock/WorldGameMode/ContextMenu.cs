@@ -60,7 +60,7 @@ namespace Warlock.WorldGameModeNS
                     TextColor = Color.Black,
                     ScreenPosition = position,
                     TapDelegate = contextMenuItems[key],
-                    AssetName = "Warlock"
+                    AssetName = "warlock_button"
                 });
             }
 

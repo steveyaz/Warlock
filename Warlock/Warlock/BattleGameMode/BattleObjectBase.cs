@@ -22,7 +22,5 @@ namespace Warlock.BattleGameMode
             }
             return false;
         }
-
-        public virtual void BattleTimeUnitIncrement() { }
     }
 }

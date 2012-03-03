@@ -7,7 +7,6 @@ namespace Warlock.BattleGameMode
     public class HUD : IDrawable, IInteractable
     {
         ActionButton m_actionButton;
-        TextScreenObject m_battleTime;
         TextScreenObject m_instructions;
 
         public HUD()
@@ -19,18 +18,9 @@ namespace Warlock.BattleGameMode
                 ScreenPosition = new Vector2(10, 422)
             };
 
-            // Battle time counter
-            m_battleTime = new TextScreenObject()
-            {
-                AssetName = "Warlock",
-                ScreenPosition = new Vector2(4, 4),
-                TextColor = Color.White,
-                Text = BattleGameMode.m_Instance.BattleTime.ToString()
-            };
-
             m_instructions = new TextScreenObject()
             {
-                AssetName = "Warlock",
+                AssetName = "warlock_standard",
                 ScreenPosition = new Vector2(250, 40),
                 TextColor = Color.Black,
                 Text = "Choose an action"
@@ -43,13 +33,10 @@ namespace Warlock.BattleGameMode
                 m_actionButton.Draw();
             if (BattleGameMode.m_Instance.Paused)
                 m_instructions.Draw();
-            m_battleTime.Draw();
         }
 
         public void Update()
         {
-            m_battleTime.Text = BattleGameMode.m_Instance.BattleTime.ToString();
-
             if (BattleGameMode.m_Instance.Victory)
                 m_instructions.Text = "Victory!";
             else if (BattleGameMode.m_Instance.ChooseTarget)
@@ -63,7 +50,6 @@ namespace Warlock.BattleGameMode
         public void LoadContent()
         {
             m_actionButton.LoadContent();
-            m_battleTime.LoadContent();
             m_instructions.LoadContent();
         }
 

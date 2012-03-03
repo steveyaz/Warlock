@@ -43,8 +43,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Warlock.spritefont">
-      <Name>Warlock</Name>
+    <Compile Include="warlock_button.spritefont">
+      <Name>warlock_button</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
@@ -164,6 +164,7 @@
       <Name>battle1</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -208,8 +209,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="graywizard_cast.png">
-      <Name>graywizard_cast</Name>
+    <Compile Include="warlock_standard.spritefont">
+      <Name>warlock_standard</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="graywizard_cast_1.png">
+      <Name>graywizard_cast_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="graywizard_cast_2.png">
+      <Name>graywizard_cast_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

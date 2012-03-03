@@ -51,7 +51,7 @@ namespace Warlock
 
         public void LoadContent()
         {
-            WarlockGame.Instance.EnsureFont("Warlock");
+            WarlockGame.Instance.EnsureFont("warlock_button");
         }
     }
 }

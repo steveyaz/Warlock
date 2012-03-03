@@ -38,7 +38,7 @@ namespace Warlock.WorldGameModeNS
             m_map = new Map();
             
             // Player on the map
-            m_player = new Player(200, 200);
+            m_player = new Player(1200, 1200);
             
             // HUD
             m_HUD = new HUD();
@@ -81,8 +81,6 @@ namespace Warlock.WorldGameModeNS
             foreach (WorldObjectBase worldObjectBase in worldObjects)
                 m_interactable.Add(worldObjectBase);
             m_interactable.Add(m_map);
-
-            CenterOnPlayer();
 
             // Enable only certain gestures
             TouchPanel.EnabledGestures = GestureType.DoubleTap | GestureType.Pinch | GestureType.Tap;
@@ -129,6 +127,7 @@ namespace Warlock.WorldGameModeNS
         {
             foreach (IDrawable drawable in m_drawable)
                 drawable.LoadContent();
+            CenterOnPlayer();
         }
 
         public void CenterOnPlayer()

@@ -12,7 +12,7 @@
       <ObjectType>City</ObjectType>
       <ObjectID>albador</ObjectID>
       <WorldMapAssetName>city</WorldMapAssetName>
-      <WorldMapXCoord>692</WorldMapXCoord>
+      <WorldMapXCoord>992</WorldMapXCoord>
       <WorldMapYCoord>480</WorldMapYCoord>
     </Item>
     <Item>
@@ -34,7 +34,7 @@
       <ObjectID>albador</ObjectID>
       <WorldMapAssetName>city</WorldMapAssetName>
       <WorldMapXCoord>654</WorldMapXCoord>
-      <WorldMapYCoord>954</WorldMapYCoord>
+      <WorldMapYCoord>1254</WorldMapYCoord>
     </Item>
     <Item>
       <ObjectType>City</ObjectType>
@@ -83,7 +83,7 @@
       <ObjectID>battle1</ObjectID>
       <WorldMapAssetName>battle</WorldMapAssetName>
       <WorldMapXCoord>666</WorldMapXCoord>
-      <WorldMapYCoord>267</WorldMapYCoord>
+      <WorldMapYCoord>2313</WorldMapYCoord>
     </Item>
     <Item>
       <ObjectType>Battle</ObjectType>

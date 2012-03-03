@@ -21,7 +21,7 @@ namespace Warlock.SplashGameModeNS
             {
                 Text = "New Game",
                 TextColor = Color.BlanchedAlmond,
-                AssetName = "Warlock",
+                AssetName = "warlock_button",
                 ScreenPosition = new Vector2(WarlockGame.Graphics.GraphicsDevice.Viewport.Width / 2, WarlockGame.Graphics.GraphicsDevice.Viewport.Height / 2 - 30),
                 TapDelegate = WarlockGame.Instance.StartNewGame
             };
@@ -30,7 +30,7 @@ namespace Warlock.SplashGameModeNS
             {
                 Text = "Exit",
                 TextColor = Color.BlanchedAlmond,
-                AssetName = "Warlock",
+                AssetName = "warlock_button",
                 ScreenPosition = new Vector2(WarlockGame.Graphics.GraphicsDevice.Viewport.Width / 2, WarlockGame.Graphics.GraphicsDevice.Viewport.Height / 2 + 30),
                 TapDelegate = WarlockGame.Instance.Exit
             };

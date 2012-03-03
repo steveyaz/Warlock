@@ -13,14 +13,10 @@ namespace Warlock.BattleGameMode
     {
         public static BattleGameMode m_Instance;
 
-        public int BattleTime { get; set; }
         public bool Paused { get; set; }
         public bool ChooseTarget { get; set; }
         public bool JustFinishedExecutingCast { get; set; }
         public bool Victory { get; set; }
-
-        private const int m_framesPerBattleTimeUnit = 30;
-        private int m_frame;
 
         private List<IDrawable> m_drawable;
         private string m_battleID;
@@ -36,8 +32,6 @@ namespace Warlock.BattleGameMode
         public void Initialize()
         {
             m_Instance = this;
-            m_frame = 0;
-            BattleTime = 0;
             Paused = true;
             ChooseTarget = false;
             JustFinishedExecutingCast = true;
@@ -92,17 +86,10 @@ namespace Warlock.BattleGameMode
         {
             if (!Paused)
             {
-                m_frame++;
-                if (m_frame == m_framesPerBattleTimeUnit)
-                {
-                    m_frame = 0;
-                    // next battle time unit
-                    BattleTime++;
-                    // notify Enemies and Player of time unit increment
-                    foreach (Enemy enemy in m_enemies)
-                        enemy.BattleTimeUnitIncrement();
-                    m_player.BattleTimeUnitIncrement();
-                }
+                // notify Enemies and Player of time unit increment
+                foreach (Enemy enemy in m_enemies)
+                    enemy.Update();
+                m_player.Update();
             }
 
             // Go back to world view
@@ -137,8 +124,7 @@ namespace Warlock.BattleGameMode
                 }
             }
 
-            foreach (IDrawable drawable in m_drawable)
-                drawable.Update();
+            m_HUD.Update();
         }
 
         public void LoadContent()

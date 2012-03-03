@@ -16,10 +16,5 @@ namespace Warlock.BattleGameMode
         {
             BattleGameMode.m_Instance.ExecuteTap(this);
         }
-
-        public override void BattleTimeUnitIncrement()
-        {
-
-        }
     }
 }

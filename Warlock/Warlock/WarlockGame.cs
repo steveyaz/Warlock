@@ -18,6 +18,8 @@ namespace Warlock
     /// </summary>
     public class WarlockGame : Microsoft.Xna.Framework.Game
     {
+        public const int FPS = 30;
+
         private static WarlockGame m_warlockGame;
         public static WarlockGame Instance
         {
