@@ -10,7 +10,7 @@
     <Item>
       <ObjectType>Enemy</ObjectType>
       <BattleObjectAssetName>redwizard</BattleObjectAssetName>
-      <BattleXCoord>740</BattleXCoord>
+      <BattleXCoord>440</BattleXCoord>
       <BattleYCoord>98</BattleYCoord>
     </Item>
     <Item>

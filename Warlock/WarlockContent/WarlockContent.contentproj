@@ -202,13 +202,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="meteor.png">
-      <Name>meteor</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="warlock_standard.spritefont">
       <Name>warlock_standard</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -225,6 +218,34 @@
   <ItemGroup>
     <Compile Include="graywizard_cast_2.png">
       <Name>graywizard_cast_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="meteor_anim_explosion1.png">
+      <Name>meteor_anim_explosion1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="meteor_anim_flight1.png">
+      <Name>meteor_anim_flight1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="meteor_icon.png">
+      <Name>meteor_icon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="meteor_anim_explosion2.png">
+      <Name>meteor_anim_explosion2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

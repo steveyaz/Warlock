@@ -14,7 +14,7 @@ namespace Warlock.BattleGameMode
             // Center-on-player button
             m_actionButton = new ActionButton()
             {
-                AssetName = "meteor",
+                AssetName = "meteor_icon",
                 ScreenPosition = new Vector2(10, 422)
             };
 
@@ -29,22 +29,35 @@ namespace Warlock.BattleGameMode
 
         public void Draw()
         {
-            if (BattleGameMode.m_Instance.Paused && !BattleGameMode.m_Instance.ChooseTarget && !BattleGameMode.m_Instance.Victory)
+            if (BattleGameMode.m_Instance.State == BattleGameState.SelectAction || BattleGameMode.m_Instance.State == BattleGameState.Paused)
                 m_actionButton.Draw();
-            if (BattleGameMode.m_Instance.Paused)
+            if (BattleGameMode.m_Instance.State == BattleGameState.Paused
+                || BattleGameMode.m_Instance.State == BattleGameState.SelectAction
+                || BattleGameMode.m_Instance.State == BattleGameState.SelectTarget
+                || BattleGameMode.m_Instance.State == BattleGameState.Victory)
                 m_instructions.Draw();
         }
 
         public void Update()
         {
-            if (BattleGameMode.m_Instance.Victory)
-                m_instructions.Text = "Victory!";
-            else if (BattleGameMode.m_Instance.ChooseTarget)
-                m_instructions.Text = "Choose a target";
-            else if (!BattleGameMode.m_Instance.JustFinishedExecutingCast)
-                m_instructions.Text = "Choose a new action or tap to unpause";
-            else if (BattleGameMode.m_Instance.JustFinishedExecutingCast)
-                m_instructions.Text = "Choose an action";
+            switch (BattleGameMode.m_Instance.State)
+            {
+                case BattleGameState.Paused:
+                    m_instructions.Text = "Choose a new action or tap to unpause";
+                    break;
+                case BattleGameState.SelectAction:
+                    m_instructions.Text = "Choose an action";
+                    break;
+                case BattleGameState.SelectTarget:
+                    m_instructions.Text = "Choose a target";
+                    break;
+                case BattleGameState.Victory:
+                    m_instructions.Text = "Victory!";
+                    break;
+                default:
+                    m_instructions.Text = "";
+                    break;
+            }
         }
 
         public void LoadContent()

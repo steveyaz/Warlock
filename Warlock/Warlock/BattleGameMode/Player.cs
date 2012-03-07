@@ -5,7 +5,6 @@ namespace Warlock.BattleGameMode
 {
     public class Player : BattleObjectBase
     {
-        private SpellBase m_casting;
         private int m_castTime;
 
         public bool IsCasting { get; set; }
@@ -15,10 +14,16 @@ namespace Warlock.BattleGameMode
             AssetName = "graywizard";
         }
 
+        public override void Draw()
+        {
+            base.Draw();
+        }
+
         public override void Update()
         {
             if (IsCasting && m_castTime == 2 * WarlockGame.FPS)
             {
+                AssetName = "graywizard";
                 IsCasting = false;
                 BattleGameMode.m_Instance.CastingFinished();
             }
@@ -55,20 +60,8 @@ namespace Warlock.BattleGameMode
         public void CastSpell(string spellName)
         {
             IsCasting = true;
-            m_casting = new SpellBase()
-            {
-                AssetName = spellName
-            };
             m_castTime = 0;
             AssetName = "graywizard_cast_1";
-        }
-
-        public void ExecuteSpell(BattleObjectBase occupyingObject)
-        {
-            occupyingObject.FDraw = false;
-            AssetName = "graywizard";
-            IsCasting = false;
-            BattleGameMode.m_Instance.CheckVictoryConditions();
         }
     }
 }

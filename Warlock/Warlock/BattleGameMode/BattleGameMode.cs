@@ -9,20 +9,30 @@ using WarlockDataTypes;
 
 namespace Warlock.BattleGameMode
 {
+    public enum BattleGameState
+    {
+        SelectAction,
+        SelectTarget,
+        RunningBattle,
+        AnimatingSpell,
+        Paused,
+        Victory
+    }
+
     public class BattleGameMode : IGameMode
     {
         public static BattleGameMode m_Instance;
 
-        public bool Paused { get; set; }
-        public bool ChooseTarget { get; set; }
-        public bool JustFinishedExecutingCast { get; set; }
-        public bool Victory { get; set; }
+        public BattleGameState State { get; set; }
 
         private List<IDrawable> m_drawable;
         private string m_battleID;
         private HUD m_HUD;
         private Player m_player;
         private List<Enemy> m_enemies;
+        private ActionButton m_selectedAction;
+        private BattleObjectBase m_selectedTarget;
+        private IDrawable m_castingSpell;
 
         public BattleGameMode(string battleID)
         {
@@ -32,10 +42,7 @@ namespace Warlock.BattleGameMode
         public void Initialize()
         {
             m_Instance = this;
-            Paused = true;
-            ChooseTarget = false;
-            JustFinishedExecutingCast = true;
-            Victory = false;
+            State = BattleGameState.SelectAction;
 
             m_drawable = new List<IDrawable>();
 
@@ -80,16 +87,24 @@ namespace Warlock.BattleGameMode
 
             foreach (IDrawable drawable in m_drawable)
                 drawable.Draw();
+
+            if (State == BattleGameState.AnimatingSpell)
+                m_castingSpell.Draw();
         }
 
         public void Update()
         {
-            if (!Paused)
+            if (State == BattleGameState.RunningBattle)
             {
                 // notify Enemies and Player of time unit increment
                 foreach (Enemy enemy in m_enemies)
                     enemy.Update();
                 m_player.Update();
+            }
+            else if (State == BattleGameState.AnimatingSpell)
+            {
+                m_player.Update();
+                m_castingSpell.Update();
             }
 
             // Go back to world view
@@ -100,27 +115,41 @@ namespace Warlock.BattleGameMode
             {
                 GestureSample gesture = TouchPanel.ReadGesture();
 
-                // exit on victory
-                if (Victory)
+                if (gesture.GestureType == GestureType.Tap)
                 {
-                    WarlockGame.Instance.EnterWorldGameMode();
-                }
-                // pause battle mode so that user can make a new action
-                if (!Paused && gesture.GestureType == GestureType.Tap)
-                {
-                    Paused = true;
-                }
-                // unpause a pause made by user
-                else if (gesture.GestureType == GestureType.Tap && Paused && !ChooseTarget && !m_HUD.InteractGesture(gesture) && !JustFinishedExecutingCast)
-                {
-                    Paused = false;
-                }
-                // execute user action
-                else
-                {
-                    foreach (Enemy enemy in m_enemies)
-                        if (enemy.InteractGesture(gesture))
+                    switch (State)
+                    {
+                        // execute user taps on HUD
+                        case BattleGameState.SelectAction:
+                            m_HUD.InteractGesture(gesture);
                             break;
+
+                        // execute user taps on potential targets
+                        case BattleGameState.SelectTarget:
+                            foreach (Enemy enemy in m_enemies)
+                                if (enemy.FDraw && enemy.InteractGesture(gesture))
+                                    break;
+                            break;
+
+                        // pause battle mode so that user can make a new action
+                        case BattleGameState.RunningBattle:
+                            State = BattleGameState.Paused;
+                            break;
+
+                        // unpause a pause made by user or execute new action
+                        case BattleGameState.Paused:
+                            if (!m_HUD.InteractGesture(gesture))
+                                State = BattleGameState.RunningBattle;
+                            break;
+
+                        // exit on victory
+                        case BattleGameState.Victory:
+                            WarlockGame.Instance.EnterWorldGameMode();
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
             }
 
@@ -135,31 +164,49 @@ namespace Warlock.BattleGameMode
 
         public void ExecuteTap(ActionButton action)
         {
-            Paused = false;
-            JustFinishedExecutingCast = false;
-            m_player.CastSpell(action.AssetName);
+            m_selectedAction = action;
+            State = BattleGameState.SelectTarget;
         }
 
         public void ExecuteTap(BattleObjectBase occupyingObject)
         {
-            if (ChooseTarget)
-                m_player.ExecuteSpell(occupyingObject);
-            ChooseTarget = false;
-            JustFinishedExecutingCast = true;
+            if (m_selectedAction.AssetName == "meteor_icon")
+            {
+                m_castingSpell = new MeteorSpell()
+                {
+                    Player = m_player,
+                    Target = occupyingObject
+                };
+            }
+
+            m_selectedTarget = occupyingObject;
+            m_player.CastSpell(m_selectedAction.AssetName);
+            State = BattleGameState.RunningBattle;
         }
 
         public void CastingFinished()
         {
-            Paused = true;
-            ChooseTarget = true;
+            m_castingSpell.LoadContent();
+            State = BattleGameState.AnimatingSpell;
         }
 
-        public void CheckVictoryConditions()
+        public void SpellEffectFinished()
+        {
+            m_castingSpell = null;
+            m_selectedTarget.FDraw = false;
+            if (CheckVictoryConditions())
+                State = BattleGameState.Victory;
+            else
+                State = BattleGameState.SelectAction;
+        }
+
+        public bool CheckVictoryConditions()
         {
             foreach (Enemy enemy in m_enemies)
                 if (enemy.FDraw)
-                    return;
-            Victory = true;
+                    return false;
+
+            return true;
         }
     }
 }
