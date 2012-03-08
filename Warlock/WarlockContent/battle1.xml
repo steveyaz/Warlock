@@ -9,19 +9,19 @@
     </Item>
     <Item>
       <ObjectType>Enemy</ObjectType>
-      <BattleObjectAssetName>redwizard</BattleObjectAssetName>
+      <BattleObjectAssetName>enemy_redwizard</BattleObjectAssetName>
       <BattleXCoord>440</BattleXCoord>
       <BattleYCoord>98</BattleYCoord>
     </Item>
     <Item>
       <ObjectType>Enemy</ObjectType>
-      <BattleObjectAssetName>redwizard</BattleObjectAssetName>
+      <BattleObjectAssetName>enemy_redwizard</BattleObjectAssetName>
       <BattleXCoord>620</BattleXCoord>
       <BattleYCoord>178</BattleYCoord>
     </Item>
     <Item>
       <ObjectType>Enemy</ObjectType>
-      <BattleObjectAssetName>redwizard</BattleObjectAssetName>
+      <BattleObjectAssetName>enemy_redwizard</BattleObjectAssetName>
       <BattleXCoord>745</BattleXCoord>
       <BattleYCoord>289</BattleYCoord>
     </Item>

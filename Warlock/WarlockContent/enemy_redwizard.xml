@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="WarlockDataTypes.EnemyData">
+    <BattleImageAsset>redwizard</BattleImageAsset>
+    <HitPoints>10</HitPoints>
+  </Asset>
+</XnaContent>

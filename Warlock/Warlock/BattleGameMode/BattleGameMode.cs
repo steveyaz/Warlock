@@ -62,11 +62,13 @@ namespace Warlock.BattleGameMode
                 }
                 else if (objectData.ObjectType == BattleObjectType.Enemy)
                 {
-                    m_enemies.Add(new Enemy()
+                    Enemy enemy = new Enemy()
                     {
-                        AssetName = objectData.BattleObjectAssetName,
+                        EnemyAsset = objectData.BattleObjectAssetName,
                         ScreenPosition = new Vector2(objectData.BattleXCoord, objectData.BattleYCoord)
-                    });
+                    };
+                    enemy.Initialize();
+                    m_enemies.Add(enemy);
                 }
             }
 
@@ -193,7 +195,9 @@ namespace Warlock.BattleGameMode
         public void SpellEffectFinished()
         {
             m_castingSpell = null;
-            m_selectedTarget.FDraw = false;
+            m_selectedTarget.HitPoints -= 5;
+            if (m_selectedTarget.HitPoints <= 0)
+                m_selectedTarget.AssetName += "_dead";
             if (CheckVictoryConditions())
                 State = BattleGameState.Victory;
             else
@@ -203,7 +207,7 @@ namespace Warlock.BattleGameMode
         public bool CheckVictoryConditions()
         {
             foreach (Enemy enemy in m_enemies)
-                if (enemy.FDraw)
+                if (enemy.HitPoints > 0)
                     return false;
 
             return true;

@@ -54,6 +54,12 @@ namespace WarlockDataTypes
         public int BattleYCoord;
     }
 
+    public class EnemyData
+    {
+        public string BattleImageAsset;
+        public int HitPoints;
+    }
+
     public class CityData
     {
         public string ObjectID;
