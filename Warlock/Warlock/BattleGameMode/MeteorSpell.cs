@@ -29,7 +29,7 @@ namespace Warlock.BattleGameMode
             m_velocity = Target.ScreenPosition - Player.ScreenPosition;
             m_velocity.Normalize();
             m_angle = (float)Math.Asin(m_velocity.Y);
-            m_velocity *= 10;
+            m_velocity *= 14;
             m_currentAsset = "meteor_anim_flight1";
         }
 

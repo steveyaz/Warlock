@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock.BattleGameMode
 {
@@ -12,10 +13,31 @@ namespace Warlock.BattleGameMode
         public Player()
         {
             AssetName = "graywizard";
+            HitPoints = 10;
+            OrigHitPoints = 10;
+            Radius = 32;
         }
 
         public override void Draw()
         {
+            WarlockGame.Batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            WarlockGame.Batch.Draw(WarlockGame.TextureDictionary["hp_bar"], ScreenPosition + HP_BAR_OFFSET, Color.White);
+
+            Vector2 tilePosition = ScreenPosition + HP_TILE_OFFSET;
+            for (int i = 10; i > 0; i--)
+            {
+                if (HitPoints * 10 / OrigHitPoints >= i)
+                {
+                    WarlockGame.Batch.Draw(WarlockGame.TextureDictionary["hp_full"], tilePosition, Color.White);
+                }
+                else
+                {
+                    WarlockGame.Batch.Draw(WarlockGame.TextureDictionary["hp_empty"], tilePosition, Color.White);
+                }
+                tilePosition.Y += HP_TILE_HEIGHT;
+            }
+
+            WarlockGame.Batch.End();
             base.Draw();
         }
 

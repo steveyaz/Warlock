@@ -68,6 +68,7 @@
     <Compile Include="BattleGameMode\ActionButton.cs" />
     <Compile Include="BattleGameMode\BattleGameMode.cs" />
     <Compile Include="BattleGameMode\BattleObjectBase.cs" />
+    <Compile Include="BattleGameMode\BattleUtil.cs" />
     <Compile Include="BattleGameMode\HUD.cs" />
     <Compile Include="BattleGameMode\Player.cs" />
     <Compile Include="BattleGameMode\Enemy.cs" />

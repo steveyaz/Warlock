@@ -16,7 +16,8 @@ namespace Warlock.BattleGameMode
         RunningBattle,
         AnimatingSpell,
         Paused,
-        Victory
+        Victory,
+        Defeat
     }
 
     public class BattleGameMode : IGameMode
@@ -24,11 +25,11 @@ namespace Warlock.BattleGameMode
         public static BattleGameMode m_Instance;
 
         public BattleGameState State { get; set; }
+        public Player PlayerBattleObject { get; set; }
 
         private List<IDrawable> m_drawable;
         private string m_battleID;
         private HUD m_HUD;
-        private Player m_player;
         private List<Enemy> m_enemies;
         private ActionButton m_selectedAction;
         private BattleObjectBase m_selectedTarget;
@@ -55,9 +56,9 @@ namespace Warlock.BattleGameMode
             {
                 if (objectData.ObjectType == BattleObjectType.Player)
                 {
-                    m_player = new Player()
+                    PlayerBattleObject = new Player()
                     {
-                        ScreenPosition = new Vector2(objectData.BattleXCoord, objectData.BattleYCoord)
+                        BattlePosition = new Vector2(objectData.BattleXCoord, objectData.BattleYCoord)
                     };
                 }
                 else if (objectData.ObjectType == BattleObjectType.Enemy)
@@ -65,7 +66,7 @@ namespace Warlock.BattleGameMode
                     Enemy enemy = new Enemy()
                     {
                         EnemyAsset = objectData.BattleObjectAssetName,
-                        ScreenPosition = new Vector2(objectData.BattleXCoord, objectData.BattleYCoord)
+                        BattlePosition = new Vector2(objectData.BattleXCoord, objectData.BattleYCoord)
                     };
                     enemy.Initialize();
                     m_enemies.Add(enemy);
@@ -75,8 +76,11 @@ namespace Warlock.BattleGameMode
             // these should always be added in opposite order so that objects drawn on top get interaction priority
             foreach (Enemy enemy in m_enemies)
                 m_drawable.Add(enemy);
-            m_drawable.Add(m_player);
+            m_drawable.Add(PlayerBattleObject);
             m_drawable.Add(m_HUD);
+
+            foreach (IDrawable drawable in m_drawable)
+                drawable.LoadContent();
 
             // Enable only certain gestures
             TouchPanel.EnabledGestures = GestureType.Tap;
@@ -101,11 +105,11 @@ namespace Warlock.BattleGameMode
                 // notify Enemies and Player of time unit increment
                 foreach (Enemy enemy in m_enemies)
                     enemy.Update();
-                m_player.Update();
+                PlayerBattleObject.Update();
             }
             else if (State == BattleGameState.AnimatingSpell)
             {
-                m_player.Update();
+                PlayerBattleObject.Update();
                 m_castingSpell.Update();
             }
 
@@ -144,8 +148,9 @@ namespace Warlock.BattleGameMode
                                 State = BattleGameState.RunningBattle;
                             break;
 
-                        // exit on victory
+                        // exit on victory or defeat
                         case BattleGameState.Victory:
+                        case BattleGameState.Defeat:
                             WarlockGame.Instance.EnterWorldGameMode();
                             break;
 
@@ -176,13 +181,13 @@ namespace Warlock.BattleGameMode
             {
                 m_castingSpell = new MeteorSpell()
                 {
-                    Player = m_player,
+                    Player = PlayerBattleObject,
                     Target = occupyingObject
                 };
             }
 
             m_selectedTarget = occupyingObject;
-            m_player.CastSpell(m_selectedAction.AssetName);
+            PlayerBattleObject.CastSpell(m_selectedAction.AssetName);
             State = BattleGameState.RunningBattle;
         }
 
@@ -195,22 +200,43 @@ namespace Warlock.BattleGameMode
         public void SpellEffectFinished()
         {
             m_castingSpell = null;
-            m_selectedTarget.HitPoints -= 5;
+            m_selectedTarget.HitPoints -= 4;
             if (m_selectedTarget.HitPoints <= 0)
                 m_selectedTarget.AssetName += "_dead";
-            if (CheckVictoryConditions())
-                State = BattleGameState.Victory;
-            else
+            if (!FEndBattleConditions())
                 State = BattleGameState.SelectAction;
         }
 
-        public bool CheckVictoryConditions()
+        public bool FEndBattleConditions()
         {
+            if (PlayerBattleObject.HitPoints <= 0)
+            {
+                State = BattleGameState.Defeat;
+                return true;
+            }
+
             foreach (Enemy enemy in m_enemies)
                 if (enemy.HitPoints > 0)
+                {
                     return false;
+                }
 
+            State = BattleGameState.Victory;
             return true;
+        }
+
+        public bool FIntersectsBattleObject(Vector2 center, BattleObjectBase self)
+        {
+            foreach (Enemy enemy in m_enemies)
+            {
+                if (enemy != self && Vector2.Distance(center, enemy.BattlePosition) < self.Radius + enemy.Radius)
+                    return true;
+            }
+
+            if (PlayerBattleObject != self && Vector2.Distance(center, PlayerBattleObject.BattlePosition) < self.Radius + PlayerBattleObject.Radius)
+                return true;
+
+            return false;
         }
     }
 }

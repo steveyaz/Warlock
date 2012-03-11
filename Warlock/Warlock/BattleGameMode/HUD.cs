@@ -34,7 +34,8 @@ namespace Warlock.BattleGameMode
             if (BattleGameMode.m_Instance.State == BattleGameState.Paused
                 || BattleGameMode.m_Instance.State == BattleGameState.SelectAction
                 || BattleGameMode.m_Instance.State == BattleGameState.SelectTarget
-                || BattleGameMode.m_Instance.State == BattleGameState.Victory)
+                || BattleGameMode.m_Instance.State == BattleGameState.Victory
+                || BattleGameMode.m_Instance.State == BattleGameState.Defeat)
                 m_instructions.Draw();
         }
 
@@ -53,6 +54,9 @@ namespace Warlock.BattleGameMode
                     break;
                 case BattleGameState.Victory:
                     m_instructions.Text = "Victory!";
+                    break;
+                case BattleGameState.Defeat:
+                    m_instructions.Text = "Defeat...";
                     break;
                 default:
                     m_instructions.Text = "";
